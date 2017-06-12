@@ -1,12 +1,12 @@
 # Dependencies
-./node_modules/
+node_modules/
 
 # Windows & Mac OS cache files
 **/Thumbs.db
 **/.DS_Store
 
 # Dist file (generated automatically)
-./dist/
+dist/
 
 # Editors files
-./.vscode/
+.vscode/

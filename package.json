@@ -1,0 +1,13 @@
+{
+  "name": "sth-select",
+  "version": "0.0.1",
+  "description": "A select component built with jQuery optimized for mobile platforms.",
+  "main": "index.js",
+  "repository": "https://github.com/StanleySathler/sth-select.git",
+  "author": "Stanley Sathler <stanleysathlerpinto@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "css-reset": "^0.0.1",
+    "jquery": "^3.2.1"
+  }
+}
