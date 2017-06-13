@@ -8,6 +8,8 @@
   "license": "MIT",
   "dependencies": {
     "css-reset": "^0.0.1",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "raw-loader": "^0.5.1",
+    "webpack": "^2.6.1"
   }
 }
