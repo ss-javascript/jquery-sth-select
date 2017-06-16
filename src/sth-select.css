@@ -1,0 +1,36 @@
+[class^="sth-select-"] {
+	box-sizing: border-box;
+}
+
+/*******************************
+ * Field
+ *******************************/
+.sth-select {
+	border: 1px solid black;
+	display: inline-block;
+}
+
+/*******************************
+ * Popup
+ *******************************/
+.sth-select-popup {
+	bottom: 0;
+	height: 0;
+	left: 0;
+	position: fixed;
+	width: 100%;
+}
+
+.sth-select-popup .sth-select-title {
+	background-color: orange;
+	font-size: 22px;
+	height: 60px;
+	padding: 15px;
+}
+
+.sth-select-popup .sth-select-item {
+	border-bottom: 1px solid #d2d2d2;
+	font-size: 16px;
+	height: 44px;
+	padding: 12px 15px;
+}
