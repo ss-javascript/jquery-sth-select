@@ -5,6 +5,18 @@
  */
 const $ = require("jquery");
 
+// temporally
+window.$ = $;
+
+/*
+ * Elements
+ */
+/*
+const Popup = require("./popup.js");
+const Item = require("./item.js");
+const FakeSelect = require("./fake-select.js");
+*/
+
 /*
  * Constructor
  */
@@ -12,19 +24,28 @@ const $ = require("jquery");
 
 	$.fn.SthSelect = function SthSelect(properties){
 
-		(function initialize(properties, $this){
-			
-			properties = buildDefault(properties);
-			let values = extractValues($this);
-			let $popup = createPopup(values, properties);
-			let $fakeSelect = fudgeSelect($this, properties);
+		var _$originalSelect = null;
+		var _$popup = null;
+		var _$fakeSelect = null;
+		var _$overlay = null;
+		var _properties = {};
+		var _values = [];
 
-			$fakeSelect.click(function(){
-				createOptionsList($popup, values);
-				$popup.animate({height: "500px"}, 500);
+		(function initialize($this){
+			_$originalSelect = $this;
+			_properties = buildDefault(properties);
+			_values = extractValues($this);
+			_$overlay = createOverlay();
+			_$popup = createPopup(_values, properties);
+			_$fakeSelect = fudgeSelect($this, properties);
+
+			_$fakeSelect.click(function(){
+				deleteOldOptionsList();
+				createOptionsList(_$popup, _values);
+				showPopup();
 			});
 
-		})(properties, $(this));
+		})( $(this) );
 
 		function buildDefault(properties){
 			return $.extend({
@@ -45,6 +66,10 @@ const $ = require("jquery");
 		}
 
 		function createPopup(values, properties){
+			let $alreadyExistent = $(".sth-select-popup");
+			if( $alreadyExistent && $alreadyExistent.length > 0 )
+				return;
+
 			let $mainSection = $('<section class="sth-select-popup"></section>');
 			let $title = $('<div class="sth-select-title">' + properties.title + '</div>');
 			let $content = $('<div class="sth-select-content"></div>');
@@ -57,6 +82,17 @@ const $ = require("jquery");
 			return $mainSection;
 		}
 
+		function createOverlay(){
+			let $alreadyExistent = $(".sth-overlay");
+			if( $alreadyExistent && $alreadyExistent.length > 0 )
+				return;
+
+			let $overlay = $('<section class="sth-overlay"></section>');
+			$overlay.appendTo( $("body") );
+
+			return $overlay;
+		}
+
 		function fudgeSelect($select, properties){
 			$select.hide();
 
@@ -66,6 +102,11 @@ const $ = require("jquery");
 			$select.after($fakeSelect);
 
 			return $fakeSelect;
+		}
+
+		function deleteOldOptionsList(){
+			let $content = _$popup.find(".sth-select-content");
+			$content.empty();
 		}
 
 		function createOptionsList($popup, values){
@@ -80,6 +121,7 @@ const $ = require("jquery");
 
 				$listItem.click(function(){
 					selectItem(value);
+					hidePopup();
 				});
 			});
 
@@ -87,9 +129,21 @@ const $ = require("jquery");
 		}
 
 		function selectItem(selectedValue){
-			console.log("value selected.");
 			let value = selectedValue.value;
-			$this.val(value);
+			_$originalSelect.val(value);
+
+			let text = selectedValue.text;
+			_$fakeSelect.text(text);
+		}
+
+		function hidePopup(){
+			_$overlay.fadeOut(500);
+			_$popup.animate({height: 0}, 500);
+		}
+
+		function showPopup(){
+			_$overlay.fadeIn(500);
+			_$popup.animate({height: "500px"}, 500);
 		}
 	};
 

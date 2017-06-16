@@ -1,0 +1,11 @@
+.sth-overlay {
+	box-sizing: border-box;
+	background-color: rgba(0, 0, 0, .6);
+	display: none;
+
+	bottom: 0;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	width: 100%;
+}
