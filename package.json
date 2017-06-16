@@ -7,9 +7,10 @@
   "author": "Stanley Sathler <stanleysathlerpinto@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "css-loader": "^0.28.4",
     "css-reset": "^0.0.1",
     "jquery": "^3.2.1",
-    "raw-loader": "^0.5.1",
+    "lodash": "^4.17.4",
     "webpack": "^2.6.1"
   }
 }

@@ -4,7 +4,7 @@
 	/*
 	 * Helper 
 	 */
-	const outputPath = "./bin";
+	const outputPath = "./dist";
 	const sourcePath = "./src";
 
 	/*
@@ -17,21 +17,17 @@
 	 * Configuration
 	 */
 	let webpackConfig = {
-		"entry": (sourcePath + "/app.js"),
+		"entry": (sourcePath + "/sth-select.js"),
 		"output": {
 			"path": path.resolve(__dirname, outputPath),
-			"filename": "app.bundle.js"
+			"filename": "sth-select.js"
 		},
 
 		"module": {
-			"rules": [
-				{ "test": /\.txt$/, "use": "raw-loader" }
-			]
+			"rules": []
 		},
 
-		"plugins": [
-			new webpack.optimize.UglifyJsPlugin()
-		]
+		"plugins": []
 	};
 
 	

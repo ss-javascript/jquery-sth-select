@@ -1,3 +1,6 @@
+## Attention!!
+This component is **under development and may have a lot of bugs and inconsistency**. It can't even work. I started this little project so I could learn more about **webpack**, **jQuery plugin creation** and some other stuff.
+
 ## What is the `sth-select`?
 A select component built in jQuery optimized for mobile platforms.
 
