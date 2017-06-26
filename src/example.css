@@ -1,0 +1,8 @@
+form {
+	width: 350px;
+}
+
+form label,
+form .sth-select {
+	display: block;
+}

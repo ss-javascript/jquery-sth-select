@@ -50,7 +50,8 @@ const FakeSelect = require("./fake-select.js");
 		function buildDefault(properties){
 			return $.extend({
 				title: "Select an option",
-				placeholder: "Choose an option"
+				placeholder: "Choose an option",
+				autoSize: false
 			}, properties);
 		}
 
@@ -97,7 +98,15 @@ const FakeSelect = require("./fake-select.js");
 			$select.hide();
 
 			let $fakeSelect = $('<div class="sth-select"></div>');
-			$fakeSelect.text(properties.placeholder);
+			let $fakeSelectText = $('<span class="sth-select-text"></span>');
+			let $fakeSelectArrow = $('<span class="sth-select-arrow"></span>');
+
+			$fakeSelectText.text(properties.placeholder);
+			$fakeSelect.append( $fakeSelectText );
+			$fakeSelect.append( $fakeSelectArrow );
+
+			if( ! properties.autoSize )
+				$fakeSelect.addClass("fixed-width");
 			
 			$select.after($fakeSelect);
 
@@ -133,7 +142,7 @@ const FakeSelect = require("./fake-select.js");
 			_$originalSelect.val(value);
 
 			let text = selectedValue.text;
-			_$fakeSelect.text(text);
+			_$fakeSelect.find(".sth-select-text").text(text);
 		}
 
 		function hidePopup(){
@@ -160,11 +169,17 @@ const FakeSelect = require("./fake-select.js");
 		let $element = $(this);
 		let title = $element.attr("sth-select-title");
 		let placeholder = $element.attr("sth-select-placeholder");
+		let autoSize = $element.attr("sth-select-autosize");
 
 		$element.SthSelect({
 			title: title,
-			placeholder: placeholder
+			placeholder: placeholder,
+			autoSize: boolFromString(autoSize)
 		});
 	});
+
+	function boolFromString(string){
+		return (string == "true");
+	}
 
 })();
