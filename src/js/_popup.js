@@ -7,6 +7,7 @@
 		var _$popup = null;
 		var _$title = null;
 		var _$content = null;
+		var _onSelectCallback = null;
 
 		/**
 		 * Constructor.
@@ -58,14 +59,65 @@
 		}
 
 		/**
-		 * Adds an item to the item list.
+		 * Add an item.
 		 */
-		function addItem(){}
+		function addItem(item, autoRender){
+			autoRender = autoRender || true;
+
+			let text = item.text;
+			let $listItem = $('<div class="sth-select-item">' + text + '</div>');
+
+			if( autoRender )
+				_$content.append( $listItem );
+
+			return $listItem;
+		}
+
+		/**
+		 * Adds many items.
+		 * 
+		 * #addItems() uses #addItem(), but renders all 
+		 * added items at once for better performance.
+		 */
+		function addItems(items){
+			let $options = [];
+
+			$.each(items, function(_, item){
+				let $listItem = addItem(item, false);
+
+				$options.push($listItem);
+
+				$listItem.click(function(){
+					_onSelectCallback(item);
+					hide();
+				});
+			});
+
+			_$content.append( $options );
+		}
+
+		/**
+		 * Clear (removes from DOM) all elements on the list.
+		 */
+		function clear(){
+			_$content.empty();
+		}
+
+		/**
+		 * Event handler which calls a callback when an item 
+		 * is selected.
+		 */
+		function onSelect(callback){
+			_onSelectCallback = callback;
+		}
 
 		return {
 			show: show,
 			hide: hide,
-			addItem: addItem
+			addItem: addItem,
+			addItems: addItems,
+			clear: clear,
+			onSelect: onSelect
 		};
 	}
 

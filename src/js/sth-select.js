@@ -6,16 +6,6 @@
 const $ = window.jQuery;
 
 /*
- * Elements
- */
-/*
-const Popup = require("./popup.js");
-const Item = require("./item.js");
-const FakeSelect = require("./fake-select.js");
-*/
-const Popup = (new SthSelect.SthSelectPopup());
-
-/*
  * Constructor
  */
 (function(){
@@ -34,13 +24,15 @@ const Popup = (new SthSelect.SthSelectPopup());
 			_properties = buildDefault(properties);
 			_values = extractValues($this);
 			_$overlay = createOverlay();
-			_$popup = createPopup(_values, properties);
+			_$popup = (new window.SthSelect.SthSelectPopup());
 			_$fakeSelect = fudgeSelect($this, properties);
 
+			_$popup.onSelect(applySelectedValue);
+
 			_$fakeSelect.click(function(){
-				deleteOldOptionsList();
-				createOptionsList(_$popup, _values);
-				showPopup();
+				_$popup.clear();
+				_$popup.addItems(_values);
+				_$popup.show();
 			});
 
 		})( $(this) );
@@ -62,25 +54,6 @@ const Popup = (new SthSelect.SthSelectPopup());
 			});
 
 			return values;
-		}
-
-		function createPopup(values, properties){
-			let $alreadyExistent = $(".sth-select-popup");
-			if( $alreadyExistent && $alreadyExistent.length > 0 )
-				return;
-
-			let $mainSection = $('<section class="sth-select-popup"></section>');
-			let $title = $('<div class="sth-select-title">' + properties.title + '</div>');
-			let $content = $('<div class="sth-select-content"></div>');
-			
-			/*
-			$mainSection
-				.append($title)
-				.append($content)
-				.appendTo( $("body") );
-			*/
-
-			return $mainSection;
 		}
 
 		function createOverlay(){
@@ -113,46 +86,12 @@ const Popup = (new SthSelect.SthSelectPopup());
 			return $fakeSelect;
 		}
 
-		function deleteOldOptionsList(){
-			let $content = _$popup.find(".sth-select-content");
-			$content.empty();
-		}
-
-		function createOptionsList($popup, values){
-			let $content = $popup.find(".sth-select-content");
-			let $options = [];
-
-			$.each(values, function(_, value){
-				let text = value.text;
-				let $listItem = $('<div class="sth-select-item">' + text + '</div>');
-				
-				$options.push($listItem);
-
-				$listItem.click(function(){
-					selectItem(value);
-					hidePopup();
-				});
-			});
-
-			$content.append($options);
-		}
-
-		function selectItem(selectedValue){
+		function applySelectedValue(selectedValue){
 			let value = selectedValue.value;
 			_$originalSelect.val(value);
 
 			let text = selectedValue.text;
 			_$fakeSelect.find(".sth-select-text").text(text);
-		}
-
-		function hidePopup(){
-			_$overlay.fadeOut(500);
-			_$popup.animate({height: 0}, 500);
-		}
-
-		function showPopup(){
-			_$overlay.fadeIn(500);
-			_$popup.animate({height: "500px"}, 500);
 		}
 	};
 
