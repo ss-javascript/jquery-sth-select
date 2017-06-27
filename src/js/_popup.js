@@ -7,6 +7,7 @@
 		var _$popup = null;
 		var _$title = null;
 		var _$content = null;
+		var _$overlay = null;
 		var _onSelectCallback = null;
 		var _qntityOfItems = 0;
 
@@ -24,6 +25,8 @@
 		 * does not have effect.
 		 */
 		(function create(){
+
+			_$overlay = (new window.SthOverlay());
 
 			if(isAlreadyInDOM()){
 				_$popup = $(".sth-select-popup");
@@ -55,6 +58,8 @@
 		 * Shows the popup on the screen.
 		 */
 		function show(){
+			_$overlay.show();
+
 			let height = _calculatePopupHeight();
 			_$popup.animate({height: height}, 500);
 		}
@@ -81,6 +86,7 @@
 		 * Hides the popup on the screen.
 		 */
 		function hide(){
+			_$overlay.hide();
 			_$popup.animate({height: 0}, 500);
 		}
 

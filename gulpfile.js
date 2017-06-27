@@ -44,6 +44,7 @@
 	{
 		return gulp
 			.src([
+				sourceJsPath + "/_overlay.js",
 				sourceJsPath + "/_popup.js",
 				sourceJsPath + "/sth-select.js"
 			])

@@ -15,7 +15,6 @@ const $ = window.jQuery;
 		var _$originalSelect = null;
 		var _$popup = null;
 		var _$fakeSelect = null;
-		var _$overlay = null;
 		var _properties = {};
 		var _values = [];
 
@@ -23,7 +22,6 @@ const $ = window.jQuery;
 			_$originalSelect = $this;
 			_properties = buildDefault(properties);
 			_values = extractValues($this);
-			_$overlay = createOverlay();
 			_$popup = (new window.SthSelect.SthSelectPopup());
 			_$fakeSelect = fudgeSelect($this, properties);
 
@@ -54,17 +52,6 @@ const $ = window.jQuery;
 			});
 
 			return values;
-		}
-
-		function createOverlay(){
-			let $alreadyExistent = $(".sth-overlay");
-			if( $alreadyExistent && $alreadyExistent.length > 0 )
-				return;
-
-			let $overlay = $('<section class="sth-overlay"></section>');
-			$overlay.appendTo( $("body") );
-
-			return $overlay;
 		}
 
 		function fudgeSelect($select, properties){
