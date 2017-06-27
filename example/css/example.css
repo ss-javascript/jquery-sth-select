@@ -64,7 +64,7 @@ h1 {
 h2 {
 	color: white;
 	font-size: 1em;
-	margin-bottom: 50px;
+	margin-bottom: 40px;
 	text-shadow: 1px 1px 0px rgba(0, 0, 0, .3);
 }
 
@@ -73,7 +73,7 @@ h2 {
  ***********************/
 form {
 	background: #fff;
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 	padding: 25px;
 
 	border-radius: 5px;
@@ -93,6 +93,16 @@ footer {
 	font-size: .85em;
 	text-align: center;
 	text-shadow: 1px 1px 0 rgba(0, 0, 0, .3);
+}
+
+footer i {
+	color: #f10000;
+}
+
+footer a {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 

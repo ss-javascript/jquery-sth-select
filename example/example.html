@@ -45,18 +45,28 @@
 			</select>
 		</form>
 
-		<footer>Made with <i class="fa fa-heart"></i> by Stanley Sathler</footer>
+		<footer>Made with <i class="fa fa-heart"></i> by <a href="https://github.com/StanleySathler">Stanley Sathler</a></footer>
 	</div><!-- /.container -->
 
 	<script src="dist/js/vendor.js"></script>
 	<script src="dist/js/sth-select.js"></script>
 	<script type="text/javascript">
-		// Centralizes the content vertically
-		var $container = $(".container");
-		var containerHeight = $container.outerHeight();
-		var windowHeight = $(window).outerHeight();
-		var marginTop = (windowHeight / 2) - (containerHeight / 2);
-		$container.css({"margin-top": marginTop + "px"});
+		(function(){
+			function centralize(){
+				var $container = $(".container");
+				var containerHeight = $container.outerHeight();
+				var windowHeight = $(window).outerHeight();
+				var marginTop = (windowHeight / 2) - (containerHeight / 2);
+				var MAX_MARGIN_TOP = 230;
+
+				marginTop = (marginTop > MAX_MARGIN_TOP) ? MAX_MARGIN_TOP : marginTop;
+
+				$container.css({"margin-top": marginTop + "px"});
+			}
+
+			centralize();
+			$(window).resize(centralize);
+		})();
 	</script>
 </body>
 </html>
