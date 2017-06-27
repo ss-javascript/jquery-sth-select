@@ -1,0 +1,39 @@
+
+/*
+ * Applies box-sizing property only on elements that 
+ * makes part of sth-select component.
+ */
+[class^="sth-select-"] {
+	box-sizing: border-box;
+}
+
+/*******************************
+ * Field
+ *******************************/
+.sth-select {
+	border: 1px solid #a0a0a0;
+	color: #353535;
+	display: inline-block;
+	padding: 5px;
+
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	        border-radius: 5px;
+
+	&.fixed-width {
+		width: 100%;
+	}
+
+	.sth-select-text {
+		width: calc(100% - 15px);
+	}
+
+	.sth-select-arrow {
+		float: right;
+	}
+
+	.sth-select-arrow::before {
+		content: "\25bc";
+		font-size: .65em;
+	}
+}

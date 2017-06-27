@@ -3,10 +3,7 @@
 /*
  * Dependencies
  */
-const $ = require("jquery");
-
-// temporally
-window.$ = $;
+const $ = window.jQuery;
 
 /*
  * Elements
