@@ -13,6 +13,7 @@ const Popup = require("./popup.js");
 const Item = require("./item.js");
 const FakeSelect = require("./fake-select.js");
 */
+const Popup = (new SthSelect.SthSelectPopup());
 
 /*
  * Constructor
@@ -72,10 +73,12 @@ const FakeSelect = require("./fake-select.js");
 			let $title = $('<div class="sth-select-title">' + properties.title + '</div>');
 			let $content = $('<div class="sth-select-content"></div>');
 			
+			/*
 			$mainSection
 				.append($title)
 				.append($content)
 				.appendTo( $("body") );
+			*/
 
 			return $mainSection;
 		}
@@ -153,6 +156,8 @@ const FakeSelect = require("./fake-select.js");
 		}
 	};
 
+	window.SthSelect = window.SthSelect || {};
+	window.SthSelect.init = window.SthSelect.init || SthSelect;
 })();
 
 /*

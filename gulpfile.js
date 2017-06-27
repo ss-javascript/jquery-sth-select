@@ -43,7 +43,10 @@
 	gulp.task("concat:app", function()
 	{
 		return gulp
-			.src(sourceJsPath + "/sth-select.js")
+			.src([
+				sourceJsPath + "/_popup.js",
+				sourceJsPath + "/sth-select.js"
+			])
 			.pipe(babel({ presets: ["es2015"] }))
 			.pipe(concat("sth-select.js"))
 			.pipe(gulp.dest(distJsPath));
