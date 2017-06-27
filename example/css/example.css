@@ -85,6 +85,10 @@ form .sth-select {
 	display: block;
 }
 
+label {
+	margin-bottom: 5px;
+}
+
 /***********************
  * Footer
  ***********************/
@@ -116,6 +120,11 @@ footer a {
 	padding: 5px 10px;
 }
 
-label {
-	margin-bottom: 5px;
+.sth-select-popup .sth-select-title {
+	background: #FF9800;
+	color: white;
+}
+
+.sth-select-popup .sth-select-item {
+	border-bottom-color: #eaeaea;
 }
