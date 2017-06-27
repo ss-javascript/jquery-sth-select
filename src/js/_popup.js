@@ -8,6 +8,13 @@
 		var _$title = null;
 		var _$content = null;
 		var _onSelectCallback = null;
+		var _qntityOfItems = 0;
+
+		/**
+		 * Max of height (in pixels) that the popup can 
+		 * assume when open.
+		 */
+		var MAX_HEIGHT = 500;
 
 		/**
 		 * Constructor.
@@ -48,7 +55,26 @@
 		 * Shows the popup on the screen.
 		 */
 		function show(){
-			_$popup.animate({height: 500}, 500);
+			let height = _calculatePopupHeight();
+			_$popup.animate({height: height}, 500);
+		}
+
+		/**
+		 * Calculates pop-up's height based on 
+		 * number of added items.
+		 */
+		function _calculatePopupHeight(){
+			let singleItemHeight = _$content
+				.find(".sth-select-item")
+				.first()
+				.outerHeight();
+
+			let qntityOfItems = _qntityOfItems;
+			let allItemsHeight = (singleItemHeight * qntityOfItems);
+			let titleHeight = _$popup.find(".sth-select-title").outerHeight();
+			
+			let contentHeight = (allItemsHeight + titleHeight);
+			return contentHeight < MAX_HEIGHT ? contentHeight : MAX_HEIGHT;
 		}
 
 		/**
@@ -80,8 +106,9 @@
 		 * added items at once for better performance.
 		 */
 		function addItems(items){
-			let $options = [];
+			_qntityOfItems = items.length;
 
+			let $options = [];
 			$.each(items, function(_, item){
 				let $listItem = addItem(item, false);
 
@@ -111,13 +138,21 @@
 			_onSelectCallback = callback;
 		}
 
+		/**
+		 * Sets the popup's title. 
+		 */
+		function setTitle(title){
+			_$title.text(title);
+		}
+
 		return {
 			show: show,
 			hide: hide,
 			addItem: addItem,
 			addItems: addItems,
 			clear: clear,
-			onSelect: onSelect
+			onSelect: onSelect,
+			setTitle: setTitle
 		};
 	}
 
