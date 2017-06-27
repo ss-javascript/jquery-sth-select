@@ -6,7 +6,9 @@
 	<title>sth-select • sample</title>
 	<base href="../" />
 	<link rel="stylesheet" href="dist/css/sth-select.css"/>
-	<link rel="stylesheet" href="example/example.css"/>
+	<link rel="stylesheet" href="example/css/example.css"/>
+	<link rel="stylesheet" href="example/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amaranth:400,700">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans"/>
 
 	<style type="text/css">
@@ -17,29 +19,44 @@
 	</style>
 </head>
 <body>
-	<form>
-		<label for="person">Person:</label>
-		<select 
-			name="person" 
-			sth-select
-			sth-select-title="Select a person:"
-			sth-select-placeholder="No person select"
-			sth-select-autosize="false">
-			<option value="1">Stanley</option>
-			<option value="2">Isabella</option>
-			<option value="3">Luiz</option>
-			<option value="4">Reubert</option>
-			<option value="5">Pedro</option>
-			<option value="6">Otávio</option>
-			<option value="7">Luís Carlos</option>
-			<option value="8">Gabriel</option>
-			<option value="9">Matheus</option>
-			<option value="5">Bruno</option>
-			<option value="5">Lorraine</option>
-		</select>
-	</form>
+	<div class="container">
+		<h1><span>sth-select</span></h1>
+		<h2>A select component optimized for mobile devices</h2>
+
+		<form>
+			<label for="person">Select a person:</label>
+			<select 
+				name="person" 
+				sth-select
+				sth-select-title="Select a person:"
+				sth-select-placeholder="No person selected"
+				sth-select-autosize="false">
+				<option value="1">Stanley</option>
+				<option value="2">Isabella</option>
+				<option value="3">Luiz</option>
+				<option value="4">Reubert</option>
+				<option value="5">Pedro</option>
+				<option value="6">Otávio</option>
+				<option value="7">Luís Carlos</option>
+				<option value="8">Gabriel</option>
+				<option value="9">Matheus</option>
+				<option value="5">Bruno</option>
+				<option value="5">Lorraine</option>
+			</select>
+		</form>
+
+		<footer>Made with <i class="fa fa-heart"></i> by Stanley Sathler</footer>
+	</div><!-- /.container -->
 
 	<script src="dist/js/vendor.js"></script>
 	<script src="dist/js/sth-select.js"></script>
+	<script type="text/javascript">
+		// Centralizes the content vertically
+		var $container = $(".container");
+		var containerHeight = $container.outerHeight();
+		var windowHeight = $(window).outerHeight();
+		var marginTop = (windowHeight / 2) - (containerHeight / 2);
+		$container.css({"margin-top": marginTop + "px"});
+	</script>
 </body>
 </html>
