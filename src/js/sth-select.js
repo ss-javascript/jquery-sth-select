@@ -30,9 +30,8 @@ const $ = window.jQuery;
 			_$popup.onSelect(applySelectedValue);
 
 			_$fakeSelect.click(function(){
-				_$popup.clear();
 				_$popup.setTitle(_properties.title);
-				_$popup.addItems(_values);
+				_$popup.setItems(_values);
 				_$popup.show();
 			});
 

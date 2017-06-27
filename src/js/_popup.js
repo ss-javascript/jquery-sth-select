@@ -71,7 +71,7 @@
 
 			let qntityOfItems = _qntityOfItems;
 			let allItemsHeight = (singleItemHeight * qntityOfItems);
-			let titleHeight = _$popup.find(".sth-select-title").outerHeight();
+			let titleHeight = _$title.outerHeight();
 			
 			let contentHeight = (allItemsHeight + titleHeight);
 			return contentHeight < MAX_HEIGHT ? contentHeight : MAX_HEIGHT;
@@ -100,14 +100,19 @@
 		}
 
 		/**
-		 * Adds many items.
+		 * Set items which will be added into the list.
 		 * 
 		 * #addItems() uses #addItem(), but renders all 
 		 * added items at once for better performance.
 		 */
-		function addItems(items){
+		function setItems(items){
+			// Clear old items
+			_clear();
+
+			// Save quantity of items added (useful for some tricks)
 			_qntityOfItems = items.length;
 
+			// Add each item into the list
 			let $options = [];
 			$.each(items, function(_, item){
 				let $listItem = addItem(item, false);
@@ -120,13 +125,19 @@
 				});
 			});
 
+			// Append items into the DOM (and renders it)
 			_$content.append( $options );
+
+			// Set the list's height, applying scroll when needed
+			let popupHeight = _calculatePopupHeight();
+			let titleHeight = _$title.outerHeight();
+			_$content.outerHeight( (popupHeight - titleHeight) );
 		}
 
 		/**
 		 * Clear (removes from DOM) all elements on the list.
 		 */
-		function clear(){
+		function _clear(){
 			_$content.empty();
 		}
 
@@ -149,8 +160,7 @@
 			show: show,
 			hide: hide,
 			addItem: addItem,
-			addItems: addItems,
-			clear: clear,
+			setItems: setItems,
 			onSelect: onSelect,
 			setTitle: setTitle
 		};
