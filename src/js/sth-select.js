@@ -22,12 +22,16 @@ const $ = window.jQuery;
 			_$originalSelect = $this;
 			_properties = buildDefault(properties);
 			_values = extractValues($this);
-			_$popup = (new window.SthSelect.SthSelectPopup());
+			_$popup = (new window.SthSelect.SthSelectPopup(properties));
 			_$fakeSelect = fudgeSelect($this, properties);
 
 			_$popup.onSelect(applySelectedValue);
 
 			_$fakeSelect.click(function(){
+
+				if(properties.filter)
+					_$popup.setFilterable(properties.filterPlaceholder);
+					
 				_$popup.setTitle(_properties.title);
 				_$popup.setItems(_values);
 				_$popup.show();
@@ -39,7 +43,9 @@ const $ = window.jQuery;
 			return $.extend({
 				title: "Select an option",
 				placeholder: "Choose an option",
-				autoSize: false
+				autoSize: false,
+				filter: false,
+				filterPlaceholder: "Search"
 			}, properties);
 		}
 
@@ -98,11 +104,15 @@ const $ = window.jQuery;
 		let title = $element.attr("sth-select-title");
 		let placeholder = $element.attr("sth-select-placeholder");
 		let autoSize = $element.attr("sth-select-autosize");
+		let filter = $element.attr("sth-select-filter");
+		let filterPlaceholder = $element.attr("sth-select-filter-placeholder");
 
 		$element.SthSelect({
 			title: title,
 			placeholder: placeholder,
-			autoSize: boolFromString(autoSize)
+			autoSize: boolFromString(autoSize),
+			filter: boolFromString(filter),
+			filterPlaceholder: filterPlaceholder
 		});
 	});
 

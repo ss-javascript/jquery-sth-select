@@ -2,7 +2,7 @@
 
 (function(){
 	
-	function SthSelectPopup(){
+	function SthSelectPopup(properties){
 
 		var _$popup = null;
 		var _$title = null;
@@ -10,6 +10,7 @@
 		var _$overlay = null;
 		var _onSelectCallback = null;
 		var _qntityOfItems = 0;
+		var _items = [];
 
 		/**
 		 * Max of height (in pixels) that the popup can 
@@ -26,18 +27,18 @@
 		 */
 		(function create(){
 
-			_$overlay = (new window.SthOverlay());
-
-			if(isAlreadyInDOM()){
+			if( isAlreadyInDOM() ){
 				_$popup = $(".sth-select-popup");
 				_$title = $(".sth-select-title");
 				_$content = $(".sth-select-content");
+				_$overlay = $(".sth-overlay");
 				return;
 			}
 
 			_$popup = $('<section class="sth-select-popup"></section>');
 			_$title = $('<div class="sth-select-title"></div>');
 			_$content = $('<div class="sth-select-content"></div>');
+			_$overlay = (new window.SthOverlay());
 			
 			_$popup
 				.append(_$title)
@@ -115,6 +116,9 @@
 			// Clear old items
 			_clear();
 
+			// Save items into the instance
+			_items = items;
+
 			// Save quantity of items added (useful for some tricks)
 			_qntityOfItems = items.length;
 
@@ -162,13 +166,34 @@
 			_$title.text(title);
 		}
 
+		/**
+		 * Adds a filter field above all items.
+		 */
+		function setFilterable(placeholder){
+
+			var $field = $('<input class="sth-select-filter" />');
+				$field.attr("placeholder", placeholder);
+				$field.keypress(function(e){
+					let currentText = $field.val();
+					let typedChar = e.key;
+
+					filter( currentText + typedChar );
+				});
+
+			_$title.after($field);
+		}
+
+		/**
+		 * Public available methods.
+		 */
 		return {
 			show: show,
 			hide: hide,
 			addItem: addItem,
 			setItems: setItems,
 			onSelect: onSelect,
-			setTitle: setTitle
+			setTitle: setTitle,
+			setFilterable: setFilterable
 		};
 	}
 
