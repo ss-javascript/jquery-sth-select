@@ -86,7 +86,7 @@ form .sth-select {
 }
 
 label {
-	margin-bottom: 5px;
+	margin-bottom: 8px;
 }
 
 /***********************
@@ -116,8 +116,9 @@ footer a {
 .sth-select {
 	background: #f5f5f5;
 	border-color: #c5c5c5;
-	border-bottom-width: 2px;
 	padding: 5px 10px;
+
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
 }
 
 .sth-select-popup .sth-select-title {
