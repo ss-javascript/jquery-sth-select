@@ -51,6 +51,10 @@
 					.appendTo( $("body") );
 			}
 
+			_$filter.keydown( e => {
+				_renderList();
+			});
+
 			_items = properties.items;
 			_filteredItems = _items;
 			_qntityOfItems = _items.length;
@@ -129,14 +133,18 @@
 			let rerenderOnEachItem = false;
 			let $listItems = [];
 
-			_items.map( item => {
-				let $listItem = _addItem(item, rerenderOnEachItem);
-					$listItem.click(function(){
-						_onSelectCallback( item );
-						hide();
-					});
+			let textFilter = _$filter.val();
 
-				$listItems.push( $listItem );
+			_items.map( item => {
+				if(item.text.indexOf(textFilter) != -1){
+					let $listItem = _addItem(item, rerenderOnEachItem);
+						$listItem.click(function(){
+							_onSelectCallback( item );
+							hide();
+						});
+
+					$listItems.push( $listItem );
+				}
 			});
 
 			_$content.append( $listItems );
@@ -168,7 +176,6 @@
 		function _controlFilterVisibility(){
 			let visibility = _properties.hasFilter ? "block" : "none";
 			_$filter.css("display", visibility);
-
 			_$filter.attr("placeholder", _properties.filterPlaceholder);
 		}
 
