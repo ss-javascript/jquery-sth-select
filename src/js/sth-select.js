@@ -22,17 +22,21 @@ const $ = window.jQuery;
 			_$originalSelect = $this;
 			_properties = buildDefault(properties);
 			_values = extractValues($this);
-			_$popup = (new window.SthSelect.SthSelectPopup({ items: _values }));
 			_$fakeSelect = fudgeSelect($this, properties);
 
-			_$popup.onSelect(applySelectedValue);
+			let popupProperties = {
+				items: _values,
+				title: _properties.title,
+				hasFilter: _properties.filter
+			};
+			_$popup = (new window.SthSelect.SthSelectPopup(popupProperties));
 
+			_$popup.onSelect(applySelectedValue);
 			_$fakeSelect.click(function(){
 
 				if(properties.filter)
 					_$popup.addFilter(properties.filterPlaceholder);
 					
-				_$popup.setTitle(_properties.title);
 				_$popup.show();
 			});
 

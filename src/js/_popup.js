@@ -67,6 +67,7 @@
 		function show(){
 			_$overlay.show();
 
+			_$title.text(_properties.title);
 			_renderList();
 
 			let height = _calculatePopupHeight();
@@ -153,13 +154,6 @@
 		}
 
 		/**
-		 * Sets the popup's title. 
-		 */
-		function setTitle(title){
-			_$title.text(title);
-		}
-
-		/**
 		 * Adds a filter field above all items.
 		 */
 		function addFilter(placeholder){
@@ -205,7 +199,6 @@
 			hide: hide,
 			addItem: addItem,
 			onSelect: onSelect,
-			setTitle: setTitle,
 			addFilter: addFilter
 		};
 	}
