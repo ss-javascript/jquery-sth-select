@@ -75,6 +75,9 @@
 		function show(){
 			_$overlay.show();
 
+			if( ! _properties.hasFilter )
+				_$filter.val("");
+
 			_$title.text(_properties.title);
 			_controlFilterVisibility();
 			_renderList();
