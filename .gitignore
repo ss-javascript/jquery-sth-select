@@ -5,8 +5,5 @@ node_modules/
 **/Thumbs.db
 **/.DS_Store
 
-# Dist file (generated automatically)
-dist/
-
 # Editors files
 .vscode/

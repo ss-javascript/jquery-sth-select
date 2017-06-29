@@ -1,0 +1,84 @@
+/*
+ * Applies box-sizing property only on elements that 
+ * makes part of sth-select component.
+ */
+[class^="sth-select"] {
+  box-sizing: border-box;
+}
+/*******************************
+ * Field
+ *******************************/
+.sth-select {
+  border: 1px solid #a0a0a0;
+  color: #353535;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.sth-select * {
+  cursor: pointer;
+}
+.sth-select.fixed-width {
+  width: 100%;
+}
+.sth-select .sth-select-text {
+  width: calc(85%);
+}
+.sth-select .sth-select-arrow {
+  float: right;
+}
+.sth-select .sth-select-arrow::before {
+  content: "\25bc";
+  font-size: .65em;
+}
+/*******************************
+ * Popup
+ *******************************/
+.sth-select-popup {
+  background-color: white;
+  bottom: 0;
+  height: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+.sth-select-popup .sth-select-content {
+  cursor: pointer;
+  max-height: 100%;
+  overflow-y: auto;
+}
+.sth-select-popup .sth-select-title {
+  background-color: #d2d2d2;
+  font-size: 1.2em;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 10px;
+}
+.sth-select-popup .sth-select-filter {
+  border: none;
+  border-bottom: 1px solid #d2d2d2;
+  height: 44px;
+  padding: 5px 10px;
+  font-size: 1em;
+  width: 100%;
+}
+.sth-select-popup .sth-select-item {
+  border-bottom: 1px solid #d2d2d2;
+  font-size: 1em;
+  height: 44px;
+  padding: 12px 15px;
+}
+.sth-overlay {
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  width: 100%;
+}
