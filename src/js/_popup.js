@@ -8,6 +8,7 @@
 		var _$popup = null;
 		var _$title = null;
 		var _$content = null;
+		var _$filter = null;
 		var _$overlay = null;
 		var _properties = properties;
 		var _onSelectCallback = null;
@@ -34,15 +35,18 @@
 				_$popup = $(".sth-select-popup");
 				_$title = $(".sth-select-title");
 				_$content = $(".sth-select-content");
+				_$filter = $(".sth-select-filter");
 				_$overlay = $(".sth-overlay");
 			} else {
 				_$popup = $('<section class="sth-select-popup"></section>');
 				_$title = $('<div class="sth-select-title"></div>');
 				_$content = $('<div class="sth-select-content"></div>');
+				_$filter = $('<input class="sth-select-filter"/>');
 				_$overlay = (new window.SthOverlay());
 				
 				_$popup
 					.append(_$title)
+					.append(_$filter)
 					.append(_$content)
 					.appendTo( $("body") );
 			}
@@ -68,6 +72,7 @@
 			_$overlay.show();
 
 			_$title.text(_properties.title);
+			_controlFilterVisibility();
 			_renderList();
 
 			let height = _calculatePopupHeight();
@@ -103,7 +108,7 @@
 		/**
 		 * Add an item.
 		 */
-		function addItem(item, autoRender){
+		function _addItem(item, autoRender){
 			autoRender = autoRender || true;
 
 			let text = item.text;
@@ -115,6 +120,9 @@
 			return $listItem;
 		}
 
+		/**
+		 * Renders all elements in the list of options.
+		 */
 		function _renderList(){
 			_clear();
 
@@ -122,7 +130,7 @@
 			let $listItems = [];
 
 			_items.map( item => {
-				let $listItem = addItem(item, rerenderOnEachItem);
+				let $listItem = _addItem(item, rerenderOnEachItem);
 					$listItem.click(function(){
 						_onSelectCallback( item );
 						hide();
@@ -154,41 +162,14 @@
 		}
 
 		/**
-		 * Adds a filter field above all items.
+		 * Sets the filter field visibility based on 
+		 * hasFilter property.
 		 */
-		function addFilter(placeholder){
+		function _controlFilterVisibility(){
+			let visibility = _properties.hasFilter ? "block" : "none";
+			_$filter.css("display", visibility);
 
-			if( isFilterAlreadyInDOM() )
-				return true;
-
-			var $field = $('<input class="sth-select-filter" />');
-				$field.attr("placeholder", placeholder);
-				$field.keypress(function(e){
-					let currentText = $field.val();
-					let typedChar = e.key;
-
-					filter( currentText + typedChar );
-				});
-
-			_$title.after($field);
-		}
-
-		/**
-		 * Checks if filter field is already in DOM, avoiding 
-		 * creating it many times.
-		 */
-		function isFilterAlreadyInDOM(){
-			var $filter = $(".sth-select-filter");
-			return ( $filter && $filter.length > 0 );
-		}
-
-		function filter(text){
-			let filtered = _items.map( item => {
-				if( item.text.indexOf(text) != -1 )
-					return item;
-			});
-
-			setItems(filtered, true);
+			_$filter.attr("placeholder", _properties.filterPlaceholder);
 		}
 
 		/**
@@ -197,9 +178,7 @@
 		return {
 			show: show,
 			hide: hide,
-			addItem: addItem,
-			onSelect: onSelect,
-			addFilter: addFilter
+			onSelect: onSelect
 		};
 	}
 

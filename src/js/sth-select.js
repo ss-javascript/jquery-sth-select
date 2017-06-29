@@ -27,19 +27,14 @@ const $ = window.jQuery;
 			let popupProperties = {
 				items: _values,
 				title: _properties.title,
-				hasFilter: _properties.filter
+				hasFilter: _properties.filter,
+				filterPlaceholder: _properties.filterPlaceholder
 			};
 			_$popup = (new window.SthSelect.SthSelectPopup(popupProperties));
 
 			_$popup.onSelect(applySelectedValue);
-			_$fakeSelect.click(function(){
-
-				if(properties.filter)
-					_$popup.addFilter(properties.filterPlaceholder);
-					
-				_$popup.show();
-			});
-
+			_$fakeSelect.click(openPopup);
+			
 		})( $(this) );
 
 		function buildDefault(properties){
@@ -80,6 +75,10 @@ const $ = window.jQuery;
 			$select.after($fakeSelect);
 
 			return $fakeSelect;
+		}
+
+		function openPopup(){
+			_$popup.show();
 		}
 
 		function applySelectedValue(selectedValue){
