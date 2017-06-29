@@ -30,7 +30,7 @@ const $ = window.jQuery;
 			_$fakeSelect.click(function(){
 
 				if(properties.filter)
-					_$popup.setFilterable(properties.filterPlaceholder);
+					_$popup.addFilter(properties.filterPlaceholder);
 					
 				_$popup.setTitle(_properties.title);
 				_$popup.setItems(_values);

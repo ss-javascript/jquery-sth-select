@@ -4,6 +4,7 @@
 	
 	function SthSelectPopup(properties){
 
+		var self = this;
 		var _$popup = null;
 		var _$title = null;
 		var _$content = null;
@@ -32,7 +33,8 @@
 				_$title = $(".sth-select-title");
 				_$content = $(".sth-select-content");
 				_$overlay = $(".sth-overlay");
-				return;
+
+				return self;
 			}
 
 			_$popup = $('<section class="sth-select-popup"></section>');
@@ -169,7 +171,10 @@
 		/**
 		 * Adds a filter field above all items.
 		 */
-		function setFilterable(placeholder){
+		function addFilter(placeholder){
+
+			if( isFilterAlreadyInDOM() )
+				return true;
 
 			var $field = $('<input class="sth-select-filter" />');
 				$field.attr("placeholder", placeholder);
@@ -184,6 +189,15 @@
 		}
 
 		/**
+		 * Checks if filter field is already in DOM, avoiding 
+		 * creating it many times.
+		 */
+		function isFilterAlreadyInDOM(){
+			var $filter = $(".sth-select-filter");
+			return ( $filter && $filter.length > 0 );
+		}
+
+		/**
 		 * Public available methods.
 		 */
 		return {
@@ -193,7 +207,7 @@
 			setItems: setItems,
 			onSelect: onSelect,
 			setTitle: setTitle,
-			setFilterable: setFilterable
+			addFilter: addFilter
 		};
 	}
 
