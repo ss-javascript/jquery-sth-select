@@ -22,7 +22,7 @@ const $ = window.jQuery;
 			_$originalSelect = $this;
 			_properties = buildDefault(properties);
 			_values = extractValues($this);
-			_$popup = (new window.SthSelect.SthSelectPopup(properties));
+			_$popup = (new window.SthSelect.SthSelectPopup({ items: _values }));
 			_$fakeSelect = fudgeSelect($this, properties);
 
 			_$popup.onSelect(applySelectedValue);
@@ -33,7 +33,6 @@ const $ = window.jQuery;
 					_$popup.addFilter(properties.filterPlaceholder);
 					
 				_$popup.setTitle(_properties.title);
-				_$popup.setItems(_values);
 				_$popup.show();
 			});
 

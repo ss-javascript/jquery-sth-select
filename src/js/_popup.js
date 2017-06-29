@@ -9,9 +9,11 @@
 		var _$title = null;
 		var _$content = null;
 		var _$overlay = null;
+		var _properties = properties;
 		var _onSelectCallback = null;
 		var _qntityOfItems = 0;
 		var _items = [];
+		var _filteredItems = [];
 
 		/**
 		 * Max of height (in pixels) that the popup can 
@@ -33,19 +35,21 @@
 				_$title = $(".sth-select-title");
 				_$content = $(".sth-select-content");
 				_$overlay = $(".sth-overlay");
-
-				return self;
+			} else {
+				_$popup = $('<section class="sth-select-popup"></section>');
+				_$title = $('<div class="sth-select-title"></div>');
+				_$content = $('<div class="sth-select-content"></div>');
+				_$overlay = (new window.SthOverlay());
+				
+				_$popup
+					.append(_$title)
+					.append(_$content)
+					.appendTo( $("body") );
 			}
 
-			_$popup = $('<section class="sth-select-popup"></section>');
-			_$title = $('<div class="sth-select-title"></div>');
-			_$content = $('<div class="sth-select-content"></div>');
-			_$overlay = (new window.SthOverlay());
-			
-			_$popup
-				.append(_$title)
-				.append(_$content)
-				.appendTo( $("body") );
+			_items = properties.items;
+			_filteredItems = _items;
+			_qntityOfItems = _items.length;
 		})();
 
 		/**
@@ -62,6 +66,8 @@
 		 */
 		function show(){
 			_$overlay.show();
+
+			_renderList();
 
 			let height = _calculatePopupHeight();
 			_$popup.animate({height: height}, 500);
@@ -108,39 +114,24 @@
 			return $listItem;
 		}
 
-		/**
-		 * Set items which will be added into the list.
-		 * 
-		 * #addItems() uses #addItem(), but renders all 
-		 * added items at once for better performance.
-		 */
-		function setItems(items){
-			// Clear old items
+		function _renderList(){
 			_clear();
 
-			// Save items into the instance
-			_items = items;
+			let rerenderOnEachItem = false;
+			let $listItems = [];
 
-			// Save quantity of items added (useful for some tricks)
-			_qntityOfItems = items.length;
+			_items.map( item => {
+				let $listItem = addItem(item, rerenderOnEachItem);
+					$listItem.click(function(){
+						_onSelectCallback( item );
+						hide();
+					});
 
-			// Add each item into the list
-			let $options = [];
-			$.each(items, function(_, item){
-				let $listItem = addItem(item, false);
-
-				$options.push($listItem);
-
-				$listItem.click(function(){
-					_onSelectCallback(item);
-					hide();
-				});
+				$listItems.push( $listItem );
 			});
 
-			// Append items into the DOM (and renders it)
-			_$content.append( $options );
+			_$content.append( $listItems );
 
-			// Set the list's height, applying scroll when needed
 			let popupHeight = _calculatePopupHeight();
 			let titleHeight = _$title.outerHeight();
 			_$content.outerHeight( (popupHeight - titleHeight) );
@@ -197,6 +188,15 @@
 			return ( $filter && $filter.length > 0 );
 		}
 
+		function filter(text){
+			let filtered = _items.map( item => {
+				if( item.text.indexOf(text) != -1 )
+					return item;
+			});
+
+			setItems(filtered, true);
+		}
+
 		/**
 		 * Public available methods.
 		 */
@@ -204,7 +204,6 @@
 			show: show,
 			hide: hide,
 			addItem: addItem,
-			setItems: setItems,
 			onSelect: onSelect,
 			setTitle: setTitle,
 			addFilter: addFilter
