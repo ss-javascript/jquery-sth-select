@@ -89,7 +89,7 @@ const $ = window.jQuery;
 /*
  * Load all elements which use the component by HTML attributes API
  */
-(function loadFromHtmlAPI(){
+$(document).ready(function loadFromHtmlAPI(){
 
 	let $elements = $("select[sth-select]");
 	
@@ -110,4 +110,4 @@ const $ = window.jQuery;
 		return (string == "true");
 	}
 
-})();
+});

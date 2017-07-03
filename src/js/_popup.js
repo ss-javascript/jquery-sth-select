@@ -119,11 +119,11 @@
 			_qntityOfItems = items.length;
 
 			// Add each item into the list
-			let $options = [];
+			let $options = $([]);
 			$.each(items, function(_, item){
 				let $listItem = addItem(item, false);
 
-				$options.push($listItem);
+				$options = $options.add($listItem);
 
 				$listItem.click(function(){
 					_onSelectCallback(item);
