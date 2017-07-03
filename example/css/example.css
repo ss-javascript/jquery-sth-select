@@ -89,6 +89,10 @@ label {
 	margin-bottom: 8px;
 }
 
+.row {
+	padding: 15px 0;
+}
+
 /***********************
  * Footer
  ***********************/

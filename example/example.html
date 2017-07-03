@@ -24,25 +24,47 @@
 		<h2>A select component optimized for mobile devices</h2>
 
 		<form>
-			<label for="person">Select a person:</label>
-			<select 
-				name="person" 
-				sth-select
-				sth-select-title="Select a person:"
-				sth-select-placeholder="No person selected"
-				sth-select-autosize="false">
-				<option value="1">Stanley</option>
-				<option value="2">Isabella</option>
-				<option value="3">Luiz</option>
-				<option value="4">Reubert</option>
-				<option value="5">Pedro</option>
-				<option value="6">Otávio</option>
-				<option value="7">Luís Carlos</option>
-				<option value="8">Gabriel</option>
-				<option value="9">Matheus</option>
-				<option value="5">Bruno</option>
-				<option value="5">Lorraine</option>
-			</select>
+			<div class="row">
+				<label for="simplest">Simplest</label>
+				<select 
+					id="simplest"
+					name="simplest"
+					sth-select
+					sth-select-title="Select an item"
+					sth-select-placeholder="No item selected"
+					sth-select-autosize="false">
+					<option value="1">Stanley</option>
+					<option value="2">Isabella</option>
+					<option value="3">Luiz</option>
+					<option value="4">Reubert</option>
+					<option value="5">Pedro</option>
+				</select>
+			</div>
+
+			<div class="row">
+				<label for="with-filter">With filter</label>
+				<select 
+					id="with-filter"
+					name="with-filter"
+					sth-select
+					sth-select-title="Select an item"
+					sth-select-placeholder="No selected item"
+					sth-select-autosize="false"
+					sth-select-filter="true"
+					sth-select-filter-placeholder="Procurar">
+					<option value="1">Stanley</option>
+					<option value="2">Isabella</option>
+					<option value="3">Luiz</option>
+					<option value="4">Reubert</option>
+					<option value="5">Pedro</option>
+					<option value="6">Otávio</option>
+					<option value="7">Luís Carlos</option>
+					<option value="8">Gabriel</option>
+					<option value="9">Matheus</option>
+					<option value="10">Bruno</option>
+					<option value="11">Lorraine</option>
+				</select>
+			</div>
 		</form>
 
 		<footer>Made with <i class="fa fa-heart"></i> by <a href="https://github.com/StanleySathler">Stanley Sathler</a></footer>
