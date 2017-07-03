@@ -185,8 +185,7 @@
 			_clear();
 
 			var rerenderOnEachItem = false;
-			var $listItems = [];
-
+			var $listItems = $([]);
 			var textFilter = _$filter.val();
 
 			_items.map(function (item) {
@@ -197,7 +196,7 @@
 						hide();
 					});
 
-					$listItems.push($listItem);
+					$listItems = $listItems.add($listItem);
 				}
 			});
 
@@ -344,7 +343,7 @@ var $ = window.jQuery;
 /*
  * Load all elements which use the component by HTML attributes API
  */
-(function loadFromHtmlAPI() {
+$(document).ready(function loadFromHtmlAPI() {
 
 	var $elements = $("select[sth-select]");
 
@@ -368,4 +367,4 @@ var $ = window.jQuery;
 	function boolFromString(string) {
 		return string == "true";
 	}
-})();
+});
