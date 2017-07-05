@@ -31,7 +31,7 @@ const $ = window.jQuery;
 				filterPlaceholder: _properties.filterPlaceholder
 			};
 			_$popup = (new window.SthSelect.SthSelectPopup(popupProperties));
-
+			
 			_$popup.onSelect(applySelectedValue);
 			_$fakeSelect.click(openPopup);
 			
