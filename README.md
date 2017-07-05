@@ -1,5 +1,6 @@
-![Component preview](./example/component-preview.gif)
+**[First of all, check the preview right here. Hope you love it. :)](https://stanleysathler.github.io/sth-select/example/)**
 
+---
 ## :fire: What is the `sth-select`?
 A select component built on top of jQuery optimized for mobile platforms.
 
