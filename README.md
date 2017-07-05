@@ -1,3 +1,5 @@
+![](http://i.imgur.com/7luTFwH.gifv)
+
 ## :fire: What is the `sth-select`?
 A select component built on top of jQuery optimized for mobile platforms.
 
