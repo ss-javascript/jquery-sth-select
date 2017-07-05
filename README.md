@@ -1,4 +1,4 @@
-![Component preview](./example/preview.gif)
+![Component preview](./example/component-preview.gif)
 
 ## :fire: What is the `sth-select`?
 A select component built on top of jQuery optimized for mobile platforms.
