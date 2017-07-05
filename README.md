@@ -1,13 +1,13 @@
 ## :fire: What is the `sth-select`?
 A select component built on top of jQuery optimized for mobile platforms.
 
-### What you mean with "optimized for mobile platforms"?
+#### What you mean with "optimized for mobile platforms"?
 Most of custom select components do not have a good usability on mobile devices. Although many mobile browsers today implement a "native modal" alternative, native selects still look bad in desktop browsers. Also, sometimes, does not work well when there is not free space available in the screen.
 
-### How does the `sth-select` solve the problem?
+#### How does the `sth-select` solve the problem?
 After click on the select component, it opens up a little section from the bottom of the screen. This behaviour fits well both on big screens or small ones (mobile devices).
 
-### Damn it, homie! Now you made me excited!
+#### Damn it, homie! Now you made me excited!
 Of course you are! This component is awesome!
 
 ---
