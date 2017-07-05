@@ -1,4 +1,4 @@
-:fire: ## What is the `sth-select`?
+## :fire: What is the `sth-select`?
 A select component built on top of jQuery optimized for mobile platforms.
 
 ### What you mean with "optimized for mobile platforms"?
@@ -10,10 +10,12 @@ After click on the select component, it opens up a little section from the botto
 ### Damn it, homie! Now you made me excited!
 Of course you are! This component is awesome!
 
-## Installation instructions
+---
+## :fire: Installation instructions
 We are currently working on some improvements before make it available on services such as NPM, Yarn and Bower. But for now, if you want to test it, you can download the files available in `/dist` directory.
 
-## How can I use it? Please, help me!
+---
+## :fire: How can I use it? Please, help me!
 Wait, little grasshopper. We are not going to leave you in the lurch after made you excited with this awesome component.
 
 ### HTML API
