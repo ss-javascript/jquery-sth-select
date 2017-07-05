@@ -1,4 +1,4 @@
-## What is the `sth-select`?
+:fire: ## What is the `sth-select`?
 A select component built on top of jQuery optimized for mobile platforms.
 
 ### What you mean with "optimized for mobile platforms"?
@@ -35,5 +35,21 @@ You might want to add a **placeholder** to your select when no item is selected.
 <select
 	sth-select
 	sth-select-placeholder="A placeholder"
+></select>
+```
+
+Sometimes, you have a lot of items and want to be able to **search** by them. **But be aware:** we have not the best search algorithm yet.
+```html
+<select
+	sth-select
+	sth-select-filter="true"
+></select>
+```
+
+Oh, and almost forgot: the filter field can also has a custom placeholder:
+```html
+<select
+	sth-select
+	sth-select-filter-placeholder="Search for an item"
 ></select>
 ```
