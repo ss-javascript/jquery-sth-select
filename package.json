@@ -3,14 +3,19 @@
   "version": "0.0.1",
   "description": "A select component built with jQuery optimized for mobile platforms.",
   "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
   "repository": "https://github.com/StanleySathler/sth-select.git",
   "author": "Stanley Sathler <stanleysathlerpinto@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "chai": "^4.0.2",
     "css-loader": "^0.28.4",
     "css-reset": "^0.0.1",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
+    "mocha": "^3.4.2",
     "webpack": "^2.6.1"
   },
   "devDependencies": {
