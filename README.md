@@ -1,4 +1,6 @@
-**[First of all, check the preview right here. Hope you love it. :)](https://stanleysathler.github.io/sth-select/example/)**
+[![Build Status](https://travis-ci.org/StanleySathler/sth-select.svg?branch=master)](https://travis-ci.org/StanleySathler/sth-select)
+
+**[Check the demo by clicking here. Hope you love it. :)](https://stanleysathler.github.io/sth-select/example/)**
 
 ---
 ## :fire: What is the `sth-select`?
