@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/StanleySathler/sth-select.svg?branch=master)](https://travis-ci.org/StanleySathler/sth-select)
+[![Build Status](https://travis-ci.org/StanleySathler/jquery-sth-select.svg?branch=master)](https://travis-ci.org/StanleySathler/jquery-sth-select)
 
-**[Check the demo by clicking here. Hope you love it. :)](https://stanleysathler.github.io/sth-select/example/)**
+**[Check the demo by clicking here. Hope you love it. :)](https://stanleysathler.github.io/jquery-sth-select/example/)**
 
 ---
 ## :fire: What is the `sth-select`?
