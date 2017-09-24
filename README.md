@@ -7,7 +7,7 @@
 A select component built on top of jQuery optimized for mobile platforms.
 
 #### What you mean with "optimized for mobile platforms"?
-Most of custom select components do not have a good usability on mobile devices. Although many mobile browsers today implement a "native modal" alternative, native selects still look bad in desktop browsers. Also, sometimes, does not work well when there is not free space available in the screen.
+Native selects can't be customized with CSS without tricks. Due that, we often use custom select components. The problem is that most of custom select components do not have a good usability on mobile devices. Also, sometimes, does not work well when there is not free space available in the screen.
 
 #### How does the `sth-select` solve the problem?
 After click on the select component, it opens up a little section from the bottom of the screen. This behaviour fits well both on big screens or small ones (mobile devices).
