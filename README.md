@@ -1,26 +1,40 @@
 [![Build Status](https://travis-ci.org/StanleySathler/jquery-sth-select.svg?branch=master)](https://travis-ci.org/StanleySathler/jquery-sth-select)
 
-**[Check the demo by clicking here. Hope you love it. :)](https://stanleysathler.github.io/jquery-sth-select/example/)**
-
 ---
-## :fire: What is the `sth-select`?
-A select component built on top of jQuery optimized for mobile platforms.
+## Table of contents
+* [Project demo](#project-demo)
+* [Introduction](#introduction)
+* [About the component](#about-the-component)
+* [How to use in my project](#how-to-use-in-my-project)
+* [How can I use it? Please, help me!](#how-can-i-use-it-please-help-me)
+* [How to contribute](#how-to-contribute)
+* [Team members](#team-members)
 
-#### What you mean with "optimized for mobile platforms"?
-Native selects can't be customized with CSS without tricks. Due that, we often use custom select components. The problem is that most of custom select components do not have a good usability on mobile devices. Also, sometimes, does not work well when there is not free space available in the screen.
+## Project demo
+* [Simple demo](https://stanleysathler.github.io/jquery-sth-select/example/)
 
-#### How does the `sth-select` solve the problem?
-After click on the select component, it opens up a little section from the bottom of the screen. This behaviour fits well both on big screens or small ones (mobile devices).
+## Introduction
+The `jquery-sth-select` select component is built on top of jQuery and offers a good interface for both Desktop and Mobile.
 
-#### Damn it, homie! Now you made me excited!
-Of course you are! This component is awesome!
+## About the component
+The component was created from a need: people can't customize native selects using CSS without tricks, and most custom selects in jQuery don't work so well on mobile devices.
 
----
-## :fire: Installation instructions
-We are currently working on some improvements before make it available on services such as NPM, Yarn and Bower. But for now, if you want to test it, you can download the files available in `/dist` directory.
+The `jquery-sth-select` is useful for you if you:
+* Have an app built on top of jQuery;
+* Have a web application which needs a custom select interface (the native one does not look so well);
+* Have a responsive web application which needs a custom select that works both on Desktop and Mobile.
 
----
-## :fire: How can I use it? Please, help me!
+## How to use in my project?
+We're not officially being installed by **npm**, **Bower** or **Yarn** **yet**. But for now, if you want to test it, you can download the files available in `/dist` directory and link them in your `.html` file(s).
+
+```html
+<head>
+	<link rel="stylesheet" href="/path/to/jquery-sth-select/dist/sth-select.css" />
+	<script type="text/javascript" src="/path/to/jquery-sth-select/dist/sth-select.js"></script>
+</head>
+```
+
+## How can I use it? Please, help me!
 Wait, little grasshopper. We are not going to leave you in the lurch after made you excited with this awesome component.
 
 ### HTML API
@@ -60,3 +74,31 @@ Oh, and almost forgot: the filter field can also has a custom placeholder:
 	sth-select-filter-placeholder="Search for an item"
 ></select>
 ```
+
+## How to contribute?
+**AWESOME!** This is exactly what we wanted to hear from you! :D
+
+The first thing you must know: you don't need to be scared about "not being the best developer in the world". We highly encourage beginner developers to contribute with our code, because they can learn with the experienced developers and, at the same time, experienced developers can learn with them. Yes, beginner developers teach too.
+
+If you want to contribute but you are not so sure about your code, make a Pull Request (PR) anyway. The team will not blame you; on the contrary, we can make constructive comments in your PR until you get it accepted.
+
+Let's build a friendship. Help us. :)
+
+To contribute, you must prepare your environment first following a few steps:
+
+**1)** To start, the first thing is fork this repository to your GitHub profile. You can do it clicking on the "Fork" button on the top right corner. After forking, you need to clone the repository into your machine.
+
+**2)** Being inside the project directory, install the dependencies from **npm** and **Bower**:
+```
+$ npm install && bower install
+```
+
+**3** Now, concat your JavaScript and CSS files using the [Gulp](https://gulpjs.com/):
+```
+$ gulp vendor && gulp
+```
+
+Now, everything is ready. Just open the `/example/index.html` to test any changes you make. But don't forget: each modification, you might need to use the `$ gulp` command again.
+
+## Team members
+* Stanley Sathler <<stanleysathlerpinto@gmail.com>>
