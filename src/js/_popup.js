@@ -65,8 +65,10 @@
 				hide();
 			});
 
-			_$filter.keydown( e => {
-				_renderList();
+			_$filter.keydown(e => {
+				setTimeout(_ => {
+					_renderList();
+				}, 0);
 			});
 
 			_items = properties.items;
@@ -149,10 +151,10 @@
 
 			let rerenderOnEachItem = false;
 			let $listItems = $([]);
-			let textFilter = _$filter.val();
+			let textFilter = _$filter.val().toLowerCase();
 
 			_items.map( item => {
-				if(item.text.indexOf(textFilter) != -1){
+				if(item.text.toLowerCase().indexOf(textFilter) != -1){
 					let $listItem = _addItem(item, rerenderOnEachItem);
 						$listItem.click(function(){
 							_onSelectCallback( item );

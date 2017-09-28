@@ -120,7 +120,9 @@
 			});
 
 			_$filter.keydown(function (e) {
-				_renderList();
+				setTimeout(function (_) {
+					_renderList();
+				}, 0);
 			});
 
 			_items = properties.items;
@@ -198,10 +200,10 @@
 
 			var rerenderOnEachItem = false;
 			var $listItems = $([]);
-			var textFilter = _$filter.val();
+			var textFilter = _$filter.val().toLowerCase();
 
 			_items.map(function (item) {
-				if (item.text.indexOf(textFilter) != -1) {
+				if (item.text.toLowerCase().indexOf(textFilter) != -1) {
 					var $listItem = _addItem(item, rerenderOnEachItem);
 					$listItem.click(function () {
 						_onSelectCallback(item);
