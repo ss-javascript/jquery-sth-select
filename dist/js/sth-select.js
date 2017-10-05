@@ -152,7 +152,13 @@
 			_renderList();
 
 			var height = _calculatePopupHeight();
-			_$popup.animate({ height: height }, 500);
+			if(height == MAX_HEIGHT) {
+				_$popup.css({'height':'auto'});
+				height = _$popup.height();
+				_$popup.animate({ height:height}, 500);
+			}
+			else
+				_$popup.animate({ height: height }, 500);
 		}
 
 		/**
