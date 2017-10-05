@@ -79,7 +79,7 @@
 		var _filteredItems = [];
 
 		/**
-   * Max of height (in pixels) that the popup can 
+   * Max of height (in pixels) that the popup can
    * assume when open.
    */
 		var MAX_HEIGHT = 500;
@@ -87,8 +87,8 @@
 		/**
    * Constructor.
    * Creates the popup section element in the DOM.
-   * 
-   * The section is created only once. Several calls 
+   *
+   * The section is created only once. Several calls
    * does not have effect.
    */
 		(function create() {
@@ -156,7 +156,7 @@
 		}
 
 		/**
-   * Calculates pop-up's height based on 
+   * Calculates pop-up's height based on
    * number of added items.
    */
 		function _calculatePopupHeight() {
@@ -186,6 +186,7 @@
 
 			var text = item.text;
 			var $listItem = $('<div class="sth-select-item">' + text + '</div>');
+			$listItem.data('item', item);
 
 			if (autoRender) _$content.append($listItem);
 
@@ -205,17 +206,15 @@
 			_items.map(function (item) {
 				if (item.text.toLowerCase().indexOf(textFilter) != -1) {
 					var $listItem = _addItem(item, rerenderOnEachItem);
-					$listItem.click(function () {
-						_onSelectCallback(item);
-						hide();
-					});
-
 					$listItems = $listItems.add($listItem);
 				}
 			});
 
 			_$content.append($listItems);
-
+			_$content.one('click', function (event) {
+				_onSelectCallback($(event.target).data('item'));
+				hide();
+			});
 			var popupHeight = _calculatePopupHeight();
 			var titleHeight = _$title.outerHeight();
 			_$content.outerHeight(popupHeight - titleHeight);
@@ -229,7 +228,7 @@
 		}
 
 		/**
-   * Event handler which calls a callback when an item 
+   * Event handler which calls a callback when an item
    * is selected.
    */
 		function onSelect(callback) {
@@ -237,7 +236,7 @@
 		}
 
 		/**
-   * Sets the filter field visibility based on 
+   * Sets the filter field visibility based on
    * hasFilter property.
    */
 		function _controlFilterVisibility() {
