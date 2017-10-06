@@ -1,7 +1,7 @@
 "use strict";
 
 (function(){
-	
+
 	function SthSelectPopup(properties){
 
 		var self = this;
@@ -19,7 +19,7 @@
 		var _filteredItems = [];
 
 		/**
-		 * Max of height (in pixels) that the popup can 
+		 * Max of height (in pixels) that the popup can
 		 * assume when open.
 		 */
 		var MAX_HEIGHT = 500;
@@ -27,8 +27,8 @@
 		/**
 		 * Constructor.
 		 * Creates the popup section element in the DOM.
-		 * 
-		 * The section is created only once. Several calls 
+		 *
+		 * The section is created only once. Several calls
 		 * does not have effect.
 		 */
 		(function create(){
@@ -49,7 +49,7 @@
 				_$content = $('<div class="sth-select-content"></div>');
 				_$filter = $('<input class="sth-select-filter"/>');
 				_$overlay = (new window.SthOverlay());
-				
+
 				_$title
 					.append(_$titleText)
 					.append(_$titleClose);
@@ -67,7 +67,7 @@
 
 			_$filter.keydown(e => {
 				setTimeout(_ => {
-					_renderList();
+					_renderList(_properties.caseSensitive);
 				}, 0);
 			});
 
@@ -96,14 +96,14 @@
 
 			_$titleText.text(_properties.title);
 			_controlFilterVisibility();
-			_renderList();
+			_renderList(_properties.caseSensitive);
 
 			let height = _calculatePopupHeight();
 			_$popup.animate({height: height}, 500);
 		}
 
 		/**
-		 * Calculates pop-up's height based on 
+		 * Calculates pop-up's height based on
 		 * number of added items.
 		 */
 		function _calculatePopupHeight(){
@@ -115,7 +115,7 @@
 			let qntityOfItems = _qntityOfItems;
 			let allItemsHeight = (singleItemHeight * qntityOfItems);
 			let titleHeight = _$title.outerHeight();
-			
+
 			let contentHeight = (allItemsHeight + titleHeight);
 			return contentHeight < MAX_HEIGHT ? contentHeight : MAX_HEIGHT;
 		}
@@ -146,15 +146,16 @@
 		/**
 		 * Renders all elements in the list of options.
 		 */
-		function _renderList(){
+		function _renderList(caseSensitive){
 			_clear();
 
 			let rerenderOnEachItem = false;
 			let $listItems = $([]);
-			let textFilter = _$filter.val().toLowerCase();
+			const textFilter = formatText(caseSensitive, _$filter.val())
 
-			_items.map( item => {
-				if(item.text.toLowerCase().indexOf(textFilter) != -1){
+			_items.forEach( item => {
+				const text = formatText(caseSensitive, item.text)
+				if(text.indexOf(textFilter) != -1){
 					let $listItem = _addItem(item, rerenderOnEachItem);
 						$listItem.click(function(){
 							_onSelectCallback( item );
@@ -180,7 +181,7 @@
 		}
 
 		/**
-		 * Event handler which calls a callback when an item 
+		 * Event handler which calls a callback when an item
 		 * is selected.
 		 */
 		function onSelect(callback){
@@ -188,13 +189,20 @@
 		}
 
 		/**
-		 * Sets the filter field visibility based on 
+		 * Sets the filter field visibility based on
 		 * hasFilter property.
 		 */
 		function _controlFilterVisibility(){
 			let visibility = _properties.hasFilter ? "block" : "none";
 			_$filter.css("display", visibility);
 			_$filter.attr("placeholder", _properties.filterPlaceholder);
+		}
+
+		/**
+		 * Returns text itself if caseSensitive is true
+		 */
+		function formatText(caseSensitive, text) {
+			return caseSensitive ? text : text.toLowerCase()
 		}
 
 		/**
