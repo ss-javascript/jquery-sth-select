@@ -67,6 +67,14 @@ Sometimes, you have a lot of items and want to be able to **search** by them. **
 ></select>
 ```
 
+If you want to enable case sensitive search:
+```html
+<select
+	sth-select
+	sth-select-case-sensitive="true"
+></select>
+```
+
 Oh, and almost forgot: the filter field can also has a custom placeholder:
 ```html
 <select
