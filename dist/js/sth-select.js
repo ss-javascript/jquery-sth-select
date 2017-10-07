@@ -79,7 +79,7 @@
 		var _filteredItems = [];
 
 		/**
-   * Max of height (in pixels) that the popup can 
+   * Max of height (in pixels) that the popup can
    * assume when open.
    */
 		var MAX_HEIGHT = 500;
@@ -87,13 +87,13 @@
 		/**
    * Constructor.
    * Creates the popup section element in the DOM.
-   * 
-   * The section is created only once. Several calls 
+   *
+   * The section is created only once. Several calls
    * does not have effect.
    */
 		(function create() {
-
-			if (isAlreadyInDOM()) {
+			var isInDOM = isAlreadyInDOM();
+			if (isInDOM) {
 				_$popup = $(".sth-select-popup");
 				_$title = $(".sth-select-title");
 				_$titleText = $(".sth-select-title-text");
@@ -115,9 +115,11 @@
 				_$popup.append(_$title).append(_$filter).append(_$content).appendTo($("body"));
 			}
 
-			_$titleClose.click(function (e) {
-				hide();
-			});
+			if (isInDOM) {
+				_$titleClose.click(function (e) {
+					hide(e);
+				});
+			}
 
 			_$filter.keydown(function (e) {
 				setTimeout(function (_) {
@@ -142,8 +144,9 @@
 		/**
    * Shows the popup on the screen.
    */
-		function show() {
+		function show(e) {
 			_$overlay.show();
+			_properties.onOpen(e);
 
 			if (!_properties.hasFilter) _$filter.val("");
 
@@ -156,7 +159,7 @@
 		}
 
 		/**
-   * Calculates pop-up's height based on 
+   * Calculates pop-up's height based on
    * number of added items.
    */
 		function _calculatePopupHeight() {
@@ -173,8 +176,9 @@
 		/**
    * Hides the popup on the screen.
    */
-		function hide() {
+		function hide(e) {
 			_$overlay.hide();
+			_properties.onHide(e);
 			_$popup.animate({ height: 0 }, 500);
 		}
 
@@ -205,9 +209,10 @@
 			_items.map(function (item) {
 				if (item.text.toLowerCase().indexOf(textFilter) != -1) {
 					var $listItem = _addItem(item, rerenderOnEachItem);
-					$listItem.click(function () {
+					$listItem.click(function (e) {
+						_properties.onSelect(item, e);
 						_onSelectCallback(item);
-						hide();
+						hide(e);
 					});
 
 					$listItems = $listItems.add($listItem);
@@ -229,7 +234,7 @@
 		}
 
 		/**
-   * Event handler which calls a callback when an item 
+   * Event handler which calls a callback when an item
    * is selected.
    */
 		function onSelect(callback) {
@@ -237,7 +242,7 @@
 		}
 
 		/**
-   * Sets the filter field visibility based on 
+   * Sets the filter field visibility based on
    * hasFilter property.
    */
 		function _controlFilterVisibility() {
@@ -290,7 +295,10 @@ var $ = window.jQuery;
 				items: _values,
 				title: _properties.title,
 				hasFilter: _properties.filter,
-				filterPlaceholder: _properties.filterPlaceholder
+				filterPlaceholder: _properties.filterPlaceholder,
+				onOpen: _properties.onOpen,
+				onSelect: _properties.onSelect,
+				onHide: _properties.onHide
 			};
 			_$popup = new window.SthSelect.SthSelectPopup(popupProperties);
 
@@ -304,7 +312,10 @@ var $ = window.jQuery;
 				placeholder: "Choose an option",
 				autoSize: false,
 				filter: false,
-				filterPlaceholder: "Search"
+				filterPlaceholder: "Search",
+				onOpen: Function.prototype,
+				onSelect: Function.prototype,
+				onHide: Function.prototype
 			}, properties);
 		}
 
@@ -337,8 +348,8 @@ var $ = window.jQuery;
 			return $fakeSelect;
 		}
 
-		function openPopup() {
-			_$popup.show();
+		function openPopup(e) {
+			_$popup.show(e);
 		}
 
 		function applySelectedValue(selectedValue) {
@@ -374,7 +385,16 @@ $(document).ready(function loadFromHtmlAPI() {
 			placeholder: placeholder,
 			autoSize: boolFromString(autoSize),
 			filter: boolFromString(filter),
-			filterPlaceholder: filterPlaceholder
+			filterPlaceholder: filterPlaceholder,
+			onOpen: function onOpen(e) {
+				return console.log('onOpen', e);
+			},
+			onSelect: function onSelect(item, e) {
+				return console.log('onSelect', item, e);
+			},
+			onHide: function onHide(e) {
+				return console.log('onHide', e);
+			}
 		});
 	});
 

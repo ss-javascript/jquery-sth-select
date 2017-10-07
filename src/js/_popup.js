@@ -1,7 +1,7 @@
 "use strict";
 
 (function(){
-	
+
 	function SthSelectPopup(properties){
 
 		var self = this;
@@ -19,7 +19,7 @@
 		var _filteredItems = [];
 
 		/**
-		 * Max of height (in pixels) that the popup can 
+		 * Max of height (in pixels) that the popup can
 		 * assume when open.
 		 */
 		var MAX_HEIGHT = 500;
@@ -27,13 +27,13 @@
 		/**
 		 * Constructor.
 		 * Creates the popup section element in the DOM.
-		 * 
-		 * The section is created only once. Several calls 
+		 *
+		 * The section is created only once. Several calls
 		 * does not have effect.
 		 */
 		(function create(){
-
-			if( isAlreadyInDOM() ){
+			const isInDOM = isAlreadyInDOM();
+			if( isInDOM ){
 				_$popup = $(".sth-select-popup");
 				_$title = $(".sth-select-title");
 				_$titleText = $(".sth-select-title-text");
@@ -49,7 +49,7 @@
 				_$content = $('<div class="sth-select-content"></div>');
 				_$filter = $('<input class="sth-select-filter"/>');
 				_$overlay = (new window.SthOverlay());
-				
+
 				_$title
 					.append(_$titleText)
 					.append(_$titleClose);
@@ -61,9 +61,11 @@
 					.appendTo( $("body") );
 			}
 
-			_$titleClose.click( e => {
-				hide();
-			});
+			if (isInDOM) {
+				_$titleClose.click( e => {
+					hide(e);
+				});
+			}
 
 			_$filter.keydown(e => {
 				setTimeout(_ => {
@@ -88,8 +90,9 @@
 		/**
 		 * Shows the popup on the screen.
 		 */
-		function show(){
+		function show(e){
 			_$overlay.show();
+			_properties.onOpen(e);
 
 			if( ! _properties.hasFilter )
 				_$filter.val("");
@@ -103,7 +106,7 @@
 		}
 
 		/**
-		 * Calculates pop-up's height based on 
+		 * Calculates pop-up's height based on
 		 * number of added items.
 		 */
 		function _calculatePopupHeight(){
@@ -115,7 +118,7 @@
 			let qntityOfItems = _qntityOfItems;
 			let allItemsHeight = (singleItemHeight * qntityOfItems);
 			let titleHeight = _$title.outerHeight();
-			
+
 			let contentHeight = (allItemsHeight + titleHeight);
 			return contentHeight < MAX_HEIGHT ? contentHeight : MAX_HEIGHT;
 		}
@@ -123,8 +126,9 @@
 		/**
 		 * Hides the popup on the screen.
 		 */
-		function hide(){
+		function hide(e){
 			_$overlay.hide();
+			_properties.onHide(e);
 			_$popup.animate({height: 0}, 500);
 		}
 
@@ -156,9 +160,10 @@
 			_items.map( item => {
 				if(item.text.toLowerCase().indexOf(textFilter) != -1){
 					let $listItem = _addItem(item, rerenderOnEachItem);
-						$listItem.click(function(){
+						$listItem.click(function(e){
+							_properties.onSelect(item, e);
 							_onSelectCallback( item );
-							hide();
+							hide(e);
 						});
 
 					$listItems = $listItems.add( $listItem );
@@ -180,7 +185,7 @@
 		}
 
 		/**
-		 * Event handler which calls a callback when an item 
+		 * Event handler which calls a callback when an item
 		 * is selected.
 		 */
 		function onSelect(callback){
@@ -188,7 +193,7 @@
 		}
 
 		/**
-		 * Sets the filter field visibility based on 
+		 * Sets the filter field visibility based on
 		 * hasFilter property.
 		 */
 		function _controlFilterVisibility(){

@@ -28,13 +28,16 @@ const $ = window.jQuery;
 				items: _values,
 				title: _properties.title,
 				hasFilter: _properties.filter,
-				filterPlaceholder: _properties.filterPlaceholder
+				filterPlaceholder: _properties.filterPlaceholder,
+				onOpen: _properties.onOpen,
+				onSelect: _properties.onSelect,
+				onHide: _properties.onHide
 			};
 			_$popup = (new window.SthSelect.SthSelectPopup(popupProperties));
-			
+
 			_$popup.onSelect(applySelectedValue);
 			_$fakeSelect.click(openPopup);
-			
+
 		})( $(this) );
 
 		function buildDefault(properties){
@@ -43,7 +46,10 @@ const $ = window.jQuery;
 				placeholder: "Choose an option",
 				autoSize: false,
 				filter: false,
-				filterPlaceholder: "Search"
+				filterPlaceholder: "Search",
+				onOpen: Function.prototype,
+				onSelect: Function.prototype,
+				onHide: Function.prototype
 			}, properties);
 		}
 
@@ -71,14 +77,14 @@ const $ = window.jQuery;
 
 			if( ! properties.autoSize )
 				$fakeSelect.addClass("fixed-width");
-			
+
 			$select.after($fakeSelect);
 
 			return $fakeSelect;
 		}
 
-		function openPopup(){
-			_$popup.show();
+		function openPopup(e){
+			_$popup.show(e);
 		}
 
 		function applySelectedValue(selectedValue){
@@ -100,7 +106,7 @@ const $ = window.jQuery;
 $(document).ready(function loadFromHtmlAPI(){
 
 	let $elements = $("select[sth-select]");
-	
+
 	$elements.each(function(){
 		let $element = $(this);
 		let title = $element.attr("sth-select-title");
@@ -114,12 +120,14 @@ $(document).ready(function loadFromHtmlAPI(){
 			placeholder: placeholder,
 			autoSize: boolFromString(autoSize),
 			filter: boolFromString(filter),
-			filterPlaceholder: filterPlaceholder
+			filterPlaceholder: filterPlaceholder,
+			onOpen: (e) => console.log('onOpen', e),
+			onSelect: (item, e) => console.log('onSelect', item, e),
+			onHide: (e) => console.log('onHide', e)
 		});
 	});
 
 	function boolFromString(string){
 		return (string == "true");
 	}
-
 });
