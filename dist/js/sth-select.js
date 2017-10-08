@@ -200,10 +200,10 @@
 
 			var rerenderOnEachItem = false;
 			var $listItems = $([]);
-			var textFilter = formatText(caseSensitive, _$filter.val());
+			var textFilter = _formatText(caseSensitive, _$filter.val());
 
 			_items.forEach(function (item) {
-				var text = formatText(caseSensitive, item.text);
+				var text = _formatText(caseSensitive, item.text);
 				if (text.indexOf(textFilter) != -1) {
 					var $listItem = _addItem(item, rerenderOnEachItem);
 					$listItem.click(function () {
@@ -250,7 +250,7 @@
 		/**
    * Returns text itself if caseSensitive is true
    */
-		function formatText(caseSensitive, text) {
+		function _formatText(caseSensitive, text) {
 			return caseSensitive ? text : text.toLowerCase();
 		}
 
