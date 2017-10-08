@@ -190,6 +190,7 @@
 
 			var text = item.text;
 			var $listItem = $('<div class="sth-select-item">' + text + '</div>');
+			$listItem.data('item', item);
 
 			if (autoRender) _$content.append($listItem);
 
@@ -209,18 +210,17 @@
 			_items.map(function (item) {
 				if (item.text.toLowerCase().indexOf(textFilter) != -1) {
 					var $listItem = _addItem(item, rerenderOnEachItem);
-					$listItem.click(function (e) {
-						_properties.onSelect(item, e);
-						_onSelectCallback(item);
-						hide(e);
-					});
-
 					$listItems = $listItems.add($listItem);
 				}
 			});
 
 			_$content.append($listItems);
-
+			_$content.one('click', function (event) {
+				var item = $(event.target).data('item');
+				_properties.onSelect(item, event);
+				_onSelectCallback(item);
+				hide(event);
+			});
 			var popupHeight = _calculatePopupHeight();
 			var titleHeight = _$title.outerHeight();
 			_$content.outerHeight(popupHeight - titleHeight);
@@ -230,6 +230,7 @@
    * Clear (removes from DOM) all elements on the list.
    */
 		function _clear() {
+			_$content.off('click');
 			_$content.empty();
 		}
 
