@@ -167,7 +167,7 @@
 			var titleHeight = _$title.outerHeight();
 
 			var contentHeight = allItemsHeight + titleHeight;
-			return contentHeight < MAX_HEIGHT ? contentHeight : MAX_HEIGHT;
+			return contentHeight < MAX_HEIGHT ? contentHeight : MAX_HEIGHT <= $(window).height() ? MAX_HEIGHT : $(window).height();
 		}
 
 		/**
