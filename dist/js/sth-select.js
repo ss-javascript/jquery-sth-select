@@ -217,7 +217,11 @@
 			});
 			var popupHeight = _calculatePopupHeight();
 			var titleHeight = _$title.outerHeight();
-			_$content.outerHeight(popupHeight - titleHeight);
+			var filterHeight = _$filter.outerHeight();
+			var contentHeight = (popupHeight - titleHeight);
+			if(_properties.hasFilter)
+				contentHeight = contentHeight - filterHeight;
+			_$content.outerHeight(contentHeight);
 		}
 
 		/**
