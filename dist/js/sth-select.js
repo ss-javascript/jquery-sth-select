@@ -152,13 +152,7 @@
 			_renderList();
 
 			var height = _calculatePopupHeight();
-			if(height == MAX_HEIGHT) {
-				_$popup.css({'height':'auto'});
-				height = _$popup.height();
-				_$popup.animate({ height:height}, 500);
-			}
-			else
-				_$popup.animate({ height: height }, 500);
+			_$popup.animate({ height: height }, 500);
 		}
 
 		/**
@@ -224,7 +218,11 @@
 
 			var popupHeight = _calculatePopupHeight();
 			var titleHeight = _$title.outerHeight();
-			_$content.outerHeight(popupHeight - titleHeight);
+			var filterHeight = _$filter.outerHeight();
+			var contentHeight = (popupHeight - titleHeight);
+			if(_properties.hasFilter)
+				contentHeight = contentHeight - filterHeight;
+			_$content.outerHeight(contentHeight);
 		}
 
 		/**
