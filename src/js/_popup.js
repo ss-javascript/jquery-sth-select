@@ -67,7 +67,7 @@
 
 			_$filter.keydown(e => {
 				setTimeout(_ => {
-					_renderList();
+					_renderList(_properties.caseSensitive);
 				}, 0);
 			});
 
@@ -96,7 +96,7 @@
 
 			_$titleText.text(_properties.title);
 			_controlFilterVisibility();
-			_renderList();
+			_renderList(_properties.caseSensitive);
 
 			let height = _calculatePopupHeight();
 			_$popup.animate({height: height}, 500);
@@ -147,15 +147,16 @@
 		/**
 		 * Renders all elements in the list of options.
 		 */
-		function _renderList(){
+		function _renderList(caseSensitive){
 			_clear();
 
 			let rerenderOnEachItem = false;
 			let $listItems = $([]);
-			let textFilter = _$filter.val().toLowerCase();
+			const textFilter = _formatText(caseSensitive, _$filter.val())
 
-			_items.map( item => {
-				if(item.text.toLowerCase().indexOf(textFilter) != -1){
+			_items.forEach( item => {
+				const text = _formatText(caseSensitive, item.text)
+				if(text.indexOf(textFilter) != -1){
 					let $listItem = _addItem(item, rerenderOnEachItem);
 					$listItems = $listItems.add( $listItem );
 				}
@@ -194,6 +195,13 @@
 			let visibility = _properties.hasFilter ? "block" : "none";
 			_$filter.css("display", visibility);
 			_$filter.attr("placeholder", _properties.filterPlaceholder);
+		}
+
+		/**
+		 * Returns text itself if caseSensitive is true
+		 */
+		function _formatText(caseSensitive, text) {
+			return caseSensitive ? text : text.toLowerCase()
 		}
 
 		/**

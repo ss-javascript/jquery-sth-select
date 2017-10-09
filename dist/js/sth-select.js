@@ -121,7 +121,7 @@
 
 			_$filter.keydown(function (e) {
 				setTimeout(function (_) {
-					_renderList();
+					_renderList(_properties.caseSensitive);
 				}, 0);
 			});
 
@@ -149,7 +149,7 @@
 
 			_$titleText.text(_properties.title);
 			_controlFilterVisibility();
-			_renderList();
+			_renderList(_properties.caseSensitive);
 
 			var height = _calculatePopupHeight();
 			_$popup.animate({ height: height }, 500);
@@ -196,15 +196,16 @@
 		/**
    * Renders all elements in the list of options.
    */
-		function _renderList() {
+		function _renderList(caseSensitive) {
 			_clear();
 
 			var rerenderOnEachItem = false;
 			var $listItems = $([]);
-			var textFilter = _$filter.val().toLowerCase();
+			var textFilter = _formatText(caseSensitive, _$filter.val());
 
-			_items.map(function (item) {
-				if (item.text.toLowerCase().indexOf(textFilter) != -1) {
+			_items.forEach(function (item) {
+				var text = _formatText(caseSensitive, item.text);
+				if (text.indexOf(textFilter) != -1) {
 					var $listItem = _addItem(item, rerenderOnEachItem);
 					$listItems = $listItems.add($listItem);
 				}
@@ -247,6 +248,13 @@
 			var visibility = _properties.hasFilter ? "block" : "none";
 			_$filter.css("display", visibility);
 			_$filter.attr("placeholder", _properties.filterPlaceholder);
+		}
+
+		/**
+   * Returns text itself if caseSensitive is true
+   */
+		function _formatText(caseSensitive, text) {
+			return caseSensitive ? text : text.toLowerCase();
 		}
 
 		/**
@@ -293,7 +301,8 @@ var $ = window.jQuery;
 				items: _values,
 				title: _properties.title,
 				hasFilter: _properties.filter,
-				filterPlaceholder: _properties.filterPlaceholder
+				filterPlaceholder: _properties.filterPlaceholder,
+				caseSensitive: _properties.caseSensitive
 			};
 			_$popup = new window.SthSelect.SthSelectPopup(popupProperties);
 
@@ -307,7 +316,8 @@ var $ = window.jQuery;
 				placeholder: "Choose an option",
 				autoSize: false,
 				filter: false,
-				filterPlaceholder: "Search"
+				filterPlaceholder: "Search",
+				caseSensitive: false
 			}, properties);
 		}
 
@@ -371,13 +381,15 @@ $(document).ready(function loadFromHtmlAPI() {
 		var autoSize = $element.attr("sth-select-autosize");
 		var filter = $element.attr("sth-select-filter");
 		var filterPlaceholder = $element.attr("sth-select-filter-placeholder");
+		var caseSensitive = $element.attr("sth-select-case-sensitive");
 
 		$element.SthSelect({
 			title: title,
 			placeholder: placeholder,
 			autoSize: boolFromString(autoSize),
 			filter: boolFromString(filter),
-			filterPlaceholder: filterPlaceholder
+			filterPlaceholder: filterPlaceholder,
+			caseSensitive: boolFromString(caseSensitive)
 		});
 	});
 

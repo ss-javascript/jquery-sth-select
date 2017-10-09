@@ -28,13 +28,14 @@ const $ = window.jQuery;
 				items: _values,
 				title: _properties.title,
 				hasFilter: _properties.filter,
-				filterPlaceholder: _properties.filterPlaceholder
+				filterPlaceholder: _properties.filterPlaceholder,
+				caseSensitive: _properties.caseSensitive
 			};
 			_$popup = (new window.SthSelect.SthSelectPopup(popupProperties));
-			
+
 			_$popup.onSelect(applySelectedValue);
 			_$fakeSelect.click(openPopup);
-			
+
 		})( $(this) );
 
 		function buildDefault(properties){
@@ -43,7 +44,8 @@ const $ = window.jQuery;
 				placeholder: "Choose an option",
 				autoSize: false,
 				filter: false,
-				filterPlaceholder: "Search"
+				filterPlaceholder: "Search",
+				caseSensitive: false
 			}, properties);
 		}
 
@@ -71,7 +73,7 @@ const $ = window.jQuery;
 
 			if( ! properties.autoSize )
 				$fakeSelect.addClass("fixed-width");
-			
+
 			$select.after($fakeSelect);
 
 			return $fakeSelect;
@@ -100,7 +102,7 @@ const $ = window.jQuery;
 $(document).ready(function loadFromHtmlAPI(){
 
 	let $elements = $("select[sth-select]");
-	
+
 	$elements.each(function(){
 		let $element = $(this);
 		let title = $element.attr("sth-select-title");
@@ -108,13 +110,15 @@ $(document).ready(function loadFromHtmlAPI(){
 		let autoSize = $element.attr("sth-select-autosize");
 		let filter = $element.attr("sth-select-filter");
 		let filterPlaceholder = $element.attr("sth-select-filter-placeholder");
+		const caseSensitive = $element.attr("sth-select-case-sensitive");
 
 		$element.SthSelect({
 			title: title,
 			placeholder: placeholder,
 			autoSize: boolFromString(autoSize),
 			filter: boolFromString(filter),
-			filterPlaceholder: filterPlaceholder
+			filterPlaceholder: filterPlaceholder,
+			caseSensitive: boolFromString(caseSensitive)
 		});
 	});
 
