@@ -94,7 +94,7 @@
 			_$overlay.show();
 			_properties.onOpen(e);
 
-			if( ! _properties.hasFilter ) 
+			if( ! _properties.hasFilter )
 				_$filter.val("");
 
 			_$titleText.text(_properties.title);
