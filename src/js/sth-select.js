@@ -29,7 +29,10 @@ const $ = window.jQuery;
 				title: _properties.title,
 				hasFilter: _properties.filter,
 				filterPlaceholder: _properties.filterPlaceholder,
-				caseSensitive: _properties.caseSensitive
+				caseSensitive: _properties.caseSensitive,
+				onOpen: _properties.onOpen,
+				onSelect: _properties.onSelect,
+				onHide: _properties.onHide
 			};
 			_$popup = (new window.SthSelect.SthSelectPopup(popupProperties));
 
@@ -45,7 +48,10 @@ const $ = window.jQuery;
 				autoSize: false,
 				filter: false,
 				filterPlaceholder: "Search",
-				caseSensitive: false
+				caseSensitive: false,
+				onOpen: Function.prototype,
+				onSelect: Function.prototype,
+				onHide: Function.prototype
 			}, properties);
 		}
 
@@ -79,8 +85,8 @@ const $ = window.jQuery;
 			return $fakeSelect;
 		}
 
-		function openPopup(){
-			_$popup.show();
+		function openPopup(e){
+			_$popup.show(e);
 		}
 
 		function applySelectedValue(selectedValue){
@@ -118,7 +124,10 @@ $(document).ready(function loadFromHtmlAPI(){
 			autoSize: boolFromString(autoSize),
 			filter: boolFromString(filter),
 			filterPlaceholder: filterPlaceholder,
-			caseSensitive: boolFromString(caseSensitive)
+			caseSensitive: boolFromString(caseSensitive),
+			onOpen: (e) => console.log('onOpen', e),
+			onSelect: (item, e) => console.log('onSelect', item, e),
+			onHide: (e) => console.log('onHide', e)
 		});
 	});
 

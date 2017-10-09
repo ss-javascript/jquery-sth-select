@@ -92,8 +92,8 @@
    * does not have effect.
    */
 		(function create() {
-
-			if (isAlreadyInDOM()) {
+			var isInDOM = isAlreadyInDOM();
+			if (isInDOM) {
 				_$popup = $(".sth-select-popup");
 				_$title = $(".sth-select-title");
 				_$titleText = $(".sth-select-title-text");
@@ -115,9 +115,11 @@
 				_$popup.append(_$title).append(_$filter).append(_$content).appendTo($("body"));
 			}
 
-			_$titleClose.click(function (e) {
-				hide();
-			});
+			if (isInDOM) {
+				_$titleClose.click(function (e) {
+					hide(e);
+				});
+			}
 
 			_$filter.keydown(function (e) {
 				setTimeout(function (_) {
@@ -142,8 +144,9 @@
 		/**
    * Shows the popup on the screen.
    */
-		function show() {
+		function show(e) {
 			_$overlay.show();
+			_properties.onOpen(e);
 
 			if (!_properties.hasFilter) _$filter.val("");
 
@@ -173,8 +176,9 @@
 		/**
    * Hides the popup on the screen.
    */
-		function hide() {
+		function hide(e) {
 			_$overlay.hide();
+			_properties.onHide(e);
 			_$popup.animate({ height: 0 }, 500);
 		}
 
@@ -213,22 +217,21 @@
 
 			_$content.append($listItems);
 			_$content.one('click', function (event) {
-				_onSelectCallback($(event.target).data('item'));
-				hide();
+				var item = $(event.target).data('item');
+				_properties.onSelect(item, event);
+				_onSelectCallback(item);
+				hide(event);
 			});
 			var popupHeight = _calculatePopupHeight();
 			var titleHeight = _$title.outerHeight();
-			var filterHeight = _$filter.outerHeight();
-			var contentHeight = (popupHeight - titleHeight);
-			if(_properties.hasFilter)
-				contentHeight = contentHeight - filterHeight;
-			_$content.outerHeight(contentHeight);
+			_$content.outerHeight(popupHeight - titleHeight);
 		}
 
 		/**
    * Clear (removes from DOM) all elements on the list.
    */
 		function _clear() {
+			_$content.off('click');
 			_$content.empty();
 		}
 
@@ -302,7 +305,10 @@ var $ = window.jQuery;
 				title: _properties.title,
 				hasFilter: _properties.filter,
 				filterPlaceholder: _properties.filterPlaceholder,
-				caseSensitive: _properties.caseSensitive
+				caseSensitive: _properties.caseSensitive,
+				onOpen: _properties.onOpen,
+				onSelect: _properties.onSelect,
+				onHide: _properties.onHide
 			};
 			_$popup = new window.SthSelect.SthSelectPopup(popupProperties);
 
@@ -317,7 +323,10 @@ var $ = window.jQuery;
 				autoSize: false,
 				filter: false,
 				filterPlaceholder: "Search",
-				caseSensitive: false
+				caseSensitive: false,
+				onOpen: Function.prototype,
+				onSelect: Function.prototype,
+				onHide: Function.prototype
 			}, properties);
 		}
 
@@ -350,8 +359,8 @@ var $ = window.jQuery;
 			return $fakeSelect;
 		}
 
-		function openPopup() {
-			_$popup.show();
+		function openPopup(e) {
+			_$popup.show(e);
 		}
 
 		function applySelectedValue(selectedValue) {
@@ -389,7 +398,16 @@ $(document).ready(function loadFromHtmlAPI() {
 			autoSize: boolFromString(autoSize),
 			filter: boolFromString(filter),
 			filterPlaceholder: filterPlaceholder,
-			caseSensitive: boolFromString(caseSensitive)
+			caseSensitive: boolFromString(caseSensitive),
+			onOpen: function onOpen(e) {
+				return console.log('onOpen', e);
+			},
+			onSelect: function onSelect(item, e) {
+				return console.log('onSelect', item, e);
+			},
+			onHide: function onHide(e) {
+				return console.log('onHide', e);
+			}
 		});
 	});
 
