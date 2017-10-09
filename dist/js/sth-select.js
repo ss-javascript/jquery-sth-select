@@ -11,6 +11,7 @@
 	function SthOverlay() {
 
 		var _$overlay = null;
+		var FADE_ANIMATION_TIME = 500;
 
 		/**
    * Constructor.
@@ -40,20 +41,17 @@
    * Shows the overlay.
    */
 		function show() {
-			_$overlay.fadeIn(500);
+			_$overlay.fadeIn(FADE_ANIMATION_TIME);
 		}
 
 		/**
    * Hides the overlay.
    */
 		function hide() {
-			_$overlay.fadeOut(500);
+			_$overlay.fadeOut(FADE_ANIMATION_TIME);
 		}
 
-		return {
-			show: show,
-			hide: hide
-		};
+		return { show: show, hide: hide };
 	}
 
 	window.SthOverlay = window.SthOverlay || SthOverlay;
@@ -185,15 +183,11 @@
 		/**
    * Add an item.
    */
-		function _addItem(item, autoRender) {
-			autoRender = autoRender || true;
-
+		function _addItem(item) {
 			var text = item.text;
 			var $listItem = $('<div class="sth-select-item">' + text + '</div>');
 			$listItem.data('item', item);
-
-			if (autoRender) _$content.append($listItem);
-
+			_$content.append($listItem);
 			return $listItem;
 		}
 
@@ -203,14 +197,13 @@
 		function _renderList(caseSensitive) {
 			_clear();
 
-			var rerenderOnEachItem = false;
 			var $listItems = $([]);
 			var textFilter = _formatText(caseSensitive, _$filter.val());
 
 			_items.forEach(function (item) {
 				var text = _formatText(caseSensitive, item.text);
-				if (text.indexOf(textFilter) != -1) {
-					var $listItem = _addItem(item, rerenderOnEachItem);
+				if (~text.indexOf(textFilter)) {
+					var $listItem = _addItem(item);
 					$listItems = $listItems.add($listItem);
 				}
 			});
@@ -263,11 +256,7 @@
 		/**
    * Public available methods.
    */
-		return {
-			show: show,
-			hide: hide,
-			onSelect: onSelect
-		};
+		return { show: show, hide: hide, onSelect: onSelect };
 	}
 
 	window.SthSelect = window.SthSelect || {};
