@@ -32,8 +32,8 @@
 		 * does not have effect.
 		 */
 		(function create(){
-
-			if( isAlreadyInDOM() ){
+			const isInDOM = isAlreadyInDOM();
+			if( isInDOM ){
 				_$popup = $(".sth-select-popup");
 				_$title = $(".sth-select-title");
 				_$titleText = $(".sth-select-title-text");
@@ -61,9 +61,11 @@
 					.appendTo( $("body") );
 			}
 
-			_$titleClose.click( e => {
-				hide();
-			});
+			if (isInDOM) {
+				_$titleClose.click( e => {
+					hide(e);
+				});
+			}
 
 			_$filter.keydown(e => {
 				setTimeout(_ => {
@@ -88,8 +90,9 @@
 		/**
 		 * Shows the popup on the screen.
 		 */
-		function show(){
+		function show(e){
 			_$overlay.show();
+			_properties.onOpen(e);
 
 			if( ! _properties.hasFilter )
 				_$filter.val("");
@@ -123,8 +126,9 @@
 		/**
 		 * Hides the popup on the screen.
 		 */
-		function hide(){
+		function hide(e){
 			_$overlay.hide();
+			_properties.onHide(e);
 			_$popup.animate({height: 0}, 500);
 		}
 
@@ -163,9 +167,11 @@
 			});
 
 			_$content.append( $listItems );
-			_$content.one('click', function(event) {
-				_onSelectCallback( $(event.target).data('item') );
-				hide();
+			_$content.one('click', function (event) {
+				const item = $(event.target).data('item')
+				_properties.onSelect(item, event);
+				_onSelectCallback( item );
+				hide(event);
 			});
 			let popupHeight = _calculatePopupHeight();
 			let titleHeight = _$title.outerHeight();
@@ -176,6 +182,7 @@
 		 * Clear (removes from DOM) all elements on the list.
 		 */
 		function _clear(){
+			_$content.off('click');
 			_$content.empty();
 		}
 
