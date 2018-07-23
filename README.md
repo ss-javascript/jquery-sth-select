@@ -11,7 +11,7 @@
 * [Team members](#team-members)
 
 ## Project demo
-* [Simple demo](https://stanleysathler.github.io/jquery-sth-select/example/)
+* [Simple demo](https://stanleysathler.github.io/sth-select-jquery/example/)
 
 ## Introduction
 The `jquery-sth-select` select component is built on top of jQuery and offers a good interface for both Desktop and Mobile.
