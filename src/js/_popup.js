@@ -135,16 +135,11 @@
 		/**
 		 * Add an item.
 		 */
-		function _addItem(item, autoRender){
-			autoRender = autoRender || true;
-
+		function _addItem(item){
 			let text = item.text;
 			let $listItem = $('<div class="sth-select-item">' + text + '</div>');
 			$listItem.data('item', item);
-
-			if( autoRender )
-				_$content.append( $listItem );
-
+			_$content.append($listItem);
 			return $listItem;
 		}
 
@@ -154,14 +149,13 @@
 		function _renderList(caseSensitive){
 			_clear();
 
-			let rerenderOnEachItem = false;
 			let $listItems = $([]);
 			const textFilter = _formatText(caseSensitive, _$filter.val())
 
 			_items.forEach( item => {
 				const text = _formatText(caseSensitive, item.text)
-				if(text.indexOf(textFilter) != -1){
-					let $listItem = _addItem(item, rerenderOnEachItem);
+				if(~text.indexOf(textFilter)){
+					let $listItem = _addItem(item);
 					$listItems = $listItems.add( $listItem );
 				}
 			});
@@ -214,11 +208,7 @@
 		/**
 		 * Public available methods.
 		 */
-		return {
-			show: show,
-			hide: hide,
-			onSelect: onSelect
-		};
+		return { show, hide, onSelect };
 	}
 
 	window.SthSelect = window.SthSelect || {};

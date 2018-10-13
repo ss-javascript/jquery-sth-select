@@ -10,6 +10,7 @@
 	function SthOverlay(){
 
 		var _$overlay = null;
+		const FADE_ANIMATION_TIME = 500;
 
 		/**
 		 * Constructor.
@@ -39,20 +40,17 @@
 		 * Shows the overlay.
 		 */
 		function show(){
-			_$overlay.fadeIn(500);
+			_$overlay.fadeIn(FADE_ANIMATION_TIME);
 		}
 
 		/**
 		 * Hides the overlay.
 		 */
 		function hide(){
-			_$overlay.fadeOut(500);
+			_$overlay.fadeOut(FADE_ANIMATION_TIME);
 		}
 
-		return {
-			show: show,
-			hide: hide
-		};
+		return { show, hide };
 	}
 
 	window.SthOverlay = window.SthOverlay || SthOverlay;
