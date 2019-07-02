@@ -175,7 +175,11 @@
 			});
 			let popupHeight = _calculatePopupHeight();
 			let titleHeight = _$title.outerHeight();
-			_$content.outerHeight( (popupHeight - titleHeight) );
+			let filterHeight = _$filter.outerHeight();
+			let contentHeight = (popupHeight - titleHeight);
+			if(_properties.hasFilter)
+				contentHeight = contentHeight - filterHeight;
+			_$content.outerHeight(contentHeight);
 		}
 
 		/**

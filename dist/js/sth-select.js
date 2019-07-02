@@ -200,31 +200,33 @@
 		/**
    * Renders all elements in the list of options.
    */
-		function _renderList(caseSensitive) {
+		function _renderList() {
 			_clear();
 
 			var rerenderOnEachItem = false;
 			var $listItems = $([]);
-			var textFilter = _formatText(caseSensitive, _$filter.val());
+			var textFilter = _$filter.val().toLowerCase();
 
-			_items.forEach(function (item) {
-				var text = _formatText(caseSensitive, item.text);
-				if (text.indexOf(textFilter) != -1) {
+			_items.map(function (item) {
+				if (item.text.toLowerCase().indexOf(textFilter) != -1) {
 					var $listItem = _addItem(item, rerenderOnEachItem);
+					$listItem.click(function () {
+						_onSelectCallback(item);
+						hide();
+					});
+
 					$listItems = $listItems.add($listItem);
 				}
 			});
 
 			_$content.append($listItems);
-			_$content.one('click', function (event) {
-				var item = $(event.target).data('item');
-				_properties.onSelect(item, event);
-				_onSelectCallback(item);
-				hide(event);
-			});
+
 			var popupHeight = _calculatePopupHeight();
 			var titleHeight = _$title.outerHeight();
-			_$content.outerHeight(popupHeight - titleHeight);
+			var filterHeight = _$filter.outerHeight();
+			var contentHeight = popupHeight - titleHeight;
+			if (_properties.hasFilter) contentHeight = contentHeight - filterHeight;
+			_$content.outerHeight(contentHeight);
 		}
 
 		/**
